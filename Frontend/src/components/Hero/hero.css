@@ -76,13 +76,14 @@
 .heroButtons{
     display:flex;
     justify-content:center;
-    gap:20px;
-    margin:40px 0;
+    align-items:center;
+    gap:30px;
+    margin-top:40px;
     animation:slideUp 1.8s ease;
 
 }
 
-.bookBtn{
+.herobookBtn{
     padding:18px 35px;
     border:none;
     border-radius:20px;
@@ -93,6 +94,7 @@
     align-items:center;
     font-size:17px;
     font-weight:600;
+    width:fit-content;
     cursor:pointer;
 
 }

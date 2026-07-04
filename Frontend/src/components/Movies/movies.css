@@ -1,0 +1,66 @@
+.festival{
+
+padding:100px 9%;
+background:#070707;
+
+}
+
+.festivalHeading{
+
+display:flex;
+justify-content:space-between;
+align-items:end;
+margin-bottom:50px;
+
+}
+
+.festivalHeading p{
+
+color:#fdbb2d;
+font-weight:600;
+letter-spacing:4px;
+margin-bottom:10px;
+
+}
+
+.festivalHeading h1{
+font-size:45px;
+font-weight:800;
+color:white;
+
+}
+
+.festivalHeading h4{
+
+color:#ccc;
+
+}
+
+.movieGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:30px;
+
+}
+
+@media(max-width:768px){
+
+.festivalHeading{
+
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+
+}
+
+.festivalHeading h1{
+
+font-size:30px;
+
+}
+
+}

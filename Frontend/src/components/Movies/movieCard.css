@@ -1,0 +1,155 @@
+.movieCard{
+background:#181818;
+border-radius:18px;
+overflow:hidden;
+transition:.4s;
+border:1px solid #2f2f2f;
+cursor:pointer;
+
+}
+
+.movieCard:hover{
+transform: translateY(-10px) scale(1.01);
+box-shadow: 0 20px 50px rgba(255,185,40,.15);
+border-color:#ffb820;
+
+}
+
+.poster{
+
+height:380px;
+background-size:cover;
+background-position:center;
+
+position:relative;
+
+}
+
+.poster::after{
+
+content:"";
+
+position:absolute;
+inset:0;
+
+background:linear-gradient(
+transparent,
+rgb(24, 24, 24)
+);
+
+}
+
+.top{
+
+position:absolute;
+
+top:18px;
+left:18px;
+right:18px;
+
+display:flex;
+justify-content:space-between;
+
+z-index:5;
+
+}
+
+.rating{
+
+background:#242424;
+font-size:13px;
+padding:0px 10px;
+border-radius:30px;
+color:#FFD43B;
+display:flex;
+gap:8px;
+align-items:center;
+
+}
+
+.info{
+
+padding:15px;
+
+}
+
+.info h2{
+color:white;
+margin-bottom:4px;
+font-size:25px;
+
+}
+
+.info h5{
+color:#ffb820;
+margin-bottom:15px;
+font-size:16px;
+}
+
+.details{
+display:flex;
+font-size:14px;
+justify-content:space-between;
+color:#ccc;
+margin-bottom:20px;
+}
+
+.details svg{
+    margin-right:6px;
+}
+
+.dates,
+.times{
+
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-bottom:18px;
+
+}
+
+.dates span,
+.times span{
+
+padding:0px 10px;
+background:#2a271c;
+border-radius:20px;
+border:1px solid #5c4d22;
+font-size:10px;
+color:#ddd;
+}
+
+.dates svg,
+.times svg{
+    margin-right:6px;
+}
+
+button{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:50px;
+
+background:linear-gradient(
+90deg,
+#FFD54A,
+#ff9800
+);
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+letter-spacing:1px;
+
+}

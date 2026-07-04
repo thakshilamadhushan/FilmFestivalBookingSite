@@ -5,7 +5,7 @@ function Hero() {
 
   return (
 
-    <section className="hero">
+    <section className="hero" id="home">
 
       <div className="overlay"></div>
 
@@ -34,15 +34,10 @@ function Hero() {
         </p>
 
         <div className="heroButtons">
-
-          <button className="bookBtn">
-
+          <button className="herobookBtn">
             <FaTicketAlt />
-
             Book Your Seat
-
           </button>
-
         </div>
 
         <div className="stats">
