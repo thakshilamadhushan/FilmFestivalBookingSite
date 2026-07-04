@@ -11,7 +11,8 @@
 
     padding:0 8%;
     background:#090909ee;
-    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
 
     z-index:1000;
 
