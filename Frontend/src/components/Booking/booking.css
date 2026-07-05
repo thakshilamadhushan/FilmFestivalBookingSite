@@ -1,0 +1,145 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0b0b0b;
+    color:#fff;
+    font-family:Inter,sans-serif;
+}
+
+.booking-page{
+    padding:80px 9%;
+    background:#0b0b0b;
+}
+
+.booking-container{
+
+    display:grid;
+    grid-template-columns:2fr 360px;
+    gap:25px;
+    align-items:start;
+}
+
+.backtofilms {
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #bfbfbf;
+  margin: 30px 0;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+}
+
+.backtofilms svg{
+    margin-right: 5px;
+}
+
+.backtofilms:hover{
+    color: #ffcc33;
+}
+
+.booking-left{
+
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+
+}
+
+.booking-right{
+
+    position:sticky;
+    top:20px;
+    align-self:start;
+
+}
+
+.card{
+
+    background:#181818;
+    border:1px solid #2a2a2a;
+    border-radius:18px;
+
+}
+
+.section-title{
+
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:10px;
+
+}
+
+.subtitle{
+
+    color:#999;
+    font-size:15px;
+
+}
+
+input,
+select{
+
+    width:100%;
+    height:52px;
+    background:#242424;
+    border:1px solid #333;
+    border-radius:10px;
+    color:#fff;
+    padding:0 16px;
+    outline:none;
+    transition:.3s;
+
+}
+
+input:focus,
+select:focus{
+
+    border-color:#ffcc33;
+
+}
+
+button{
+
+    cursor:pointer;
+
+}
+
+@media(max-width:1000px){
+
+.booking-container{
+
+grid-template-columns:1fr;
+
+}
+
+.booking-right{
+
+position:relative;
+top:0;
+
+}
+
+}
+
+@media(max-width:600px){
+
+    .booking-page{
+        padding:0 2%;
+    }
+
+    .booking-left{
+        margin:0;
+        width:80%;
+    }
+
+    .booking-right{
+        margin:0;
+        width:80%;
+    }
+
+}

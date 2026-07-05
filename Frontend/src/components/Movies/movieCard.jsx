@@ -1,7 +1,10 @@
 import "./movieCard.css";
 import {FaStar,FaClock,FaMapMarkerAlt,FaCalendar} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function MovieCard({movie}){
+
+    const navigate = useNavigate();
 
     return(
 
@@ -49,7 +52,7 @@ function MovieCard({movie}){
 
                 </div>
 
-                <button>Book Seat →</button>
+                <button onClick={() => navigate("/booking")}>Book Seat →</button>
 
             </div>
 

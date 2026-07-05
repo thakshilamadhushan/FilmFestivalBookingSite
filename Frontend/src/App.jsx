@@ -1,21 +1,36 @@
-import { useState } from 'react'
-import Navbar from './components/Navbar/navbar'
-import Hero from './components/Hero/hero'
-import Movies from './components/Movies/movies'
-import Footer from './components/Footer/footer'
-import './App.css'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Navbar from "./components/Navbar/navbar";
+import Hero from "./components/Hero/hero";
+import Movies from "./components/Movies/movies";
+import Footer from "./components/Footer/footer";
+import BookingPage from "./components/Booking/booking";
 
+import "./App.css";
+
+function Home() {
   return (
     <>
-      <Navbar />
       <Hero />
       <Movies />
-      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/booking" element={<BookingPage />} />
+      </Routes>
+
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+export default App;

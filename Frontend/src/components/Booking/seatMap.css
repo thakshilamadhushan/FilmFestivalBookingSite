@@ -1,0 +1,169 @@
+.seat-card{
+    padding:30px;
+}
+
+.seat-card h2{
+    font-size:28px;
+}
+
+.seat-subtitle{
+    color:#9b9b9b;
+    margin-top:8px;
+    margin-bottom:35px;
+}
+
+/* Screen */
+
+.screen-wrapper{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.screen{
+    width:70%;
+    height:16px;
+    margin:auto;
+    border-radius:100px;
+    background:linear-gradient(90deg,#7d6417,#ffd54d,#7d6417);
+    box-shadow:0 0 35px rgba(255,208,54,.45);
+}
+
+.screen-wrapper h4{
+    margin-top:15px;
+    color:#ffc93c;
+    letter-spacing:5px;
+}
+
+.screen-wrapper small{
+    color:#888;
+}
+
+/* Layout */
+
+.seat-layout{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.seat-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+}
+
+.row-name{
+    width:20px;
+    text-align:center;
+    color:#888;
+    font-size:13px;
+}
+
+/* Seat */
+
+.seat{
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:10px 10px 4px 4px;
+    background:#ef4a43;
+    color:white;
+    cursor:pointer;
+    transition:.25s;
+    font-size:12px;
+}
+
+.seat:hover{
+    transform:translateY(-3px);
+}
+
+.selected{
+    background:#25c26e;
+}
+
+.occupied{
+    background:#3b3b3b;
+    color:#777;
+    cursor:not-allowed;
+}
+
+.occupied:hover{
+    transform:none;
+}
+
+/* Legend */
+
+.seat-legend{
+    display:flex;
+    justify-content:center;
+    gap:35px;
+    margin-top:40px;
+    flex-wrap:wrap;
+    border-top:1px solid #2d2d2d;
+    padding-top:25px;
+}
+
+.seat-legend div{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#bdbdbd;
+}
+
+.legend{
+    width:18px;
+    height:18px;
+    border-radius:5px;
+}
+
+.red{
+    background:#ef4a43;
+}
+
+.green{
+    background:#25c26e;
+}
+
+.gray{
+    background:#3b3b3b;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+    .seat{
+        width:32px;
+        height:32px;
+        font-size:10px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .seat-card{
+        padding:25px;
+    }
+
+    .seat{
+        width:25px;
+        height:25px;
+        border-radius:6px;
+        font-size:9px;
+    }
+
+    .seat-row{
+        gap:4px;
+    }
+
+    .screen{
+        width:95%;
+    }
+
+    .seat-legend{
+        gap:10px;
+    }
+
+}
