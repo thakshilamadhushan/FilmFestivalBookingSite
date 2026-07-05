@@ -1,15 +1,36 @@
+import { useEffect, useRef, useState } from "react";
 import "./hero.css";
 import { FaFilm, FaTicketAlt, FaRegCalendarAlt } from "react-icons/fa";
 
 function Hero() {
 
+  const heroRef = useRef(null);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setAnimate(entry.isIntersecting);
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
 
-    <section className="hero" id="home">
+    <section ref={heroRef} className="hero" id="home">
 
       <div className="overlay"></div>
 
-      <div className="heroContent">
+      <div className={animate ? "heroContent animate" : "heroContent"}>
 
         <div className="badge">
           FIHST FILM FESTIVAL 2026 EDITION
@@ -27,7 +48,7 @@ function Hero() {
 
         </h1>
 
-        <p>
+        <p className="heroDescription">
           Eight curated films. Four unforgettable nights.
           An annual celebration of storytelling,
           vision, and the shared silence of cinema hall.

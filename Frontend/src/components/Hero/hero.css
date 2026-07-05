@@ -28,7 +28,35 @@
     max-width:900px;
     color:white;
     padding:20px;
+}
 
+.badge,
+.heroTitle,
+.heroDescription,
+.heroButtons,
+.stats{
+    opacity:0;
+    transform:translateY(80px);
+}
+
+.animate .badge{
+    animation:slideUp 1.2s forwards;
+}
+
+.animate .heroTitle{
+    animation:slideUp 1.4s forwards;
+}
+
+.animate .heroDescription{
+    animation:slideUp 1.6s forwards;
+}
+
+.animate .heroButtons{
+    animation:slideUp 1.8s forwards;
+}
+
+.animate .stats{
+    animation:slideUp 2s forwards;
 }
 
 .badge{
@@ -42,7 +70,6 @@
     border:1px solid #665200;
     background-color: #dd97003b;
     color:#ffbf36;
-    animation:slideUp 1.2s ease;
 
 }
 
@@ -50,7 +77,6 @@
     font-size:70px;
     line-height:1;
     font-weight:800;
-    animation:slideUp 1.4s ease;
 }
 
 .white{
@@ -63,14 +89,12 @@
 
 }
 
-.hero p{
+.heroDescription{
     margin:35px auto;
     width:80%;
     color:#ddd;
     line-height:1.8;
     font-size:20px;
-    animation:slideUp 1.6s ease;
-
 }
 
 .heroButtons{
@@ -79,7 +103,6 @@
     align-items:center;
     gap:30px;
     margin-top:40px;
-    animation:slideUp 1.8s ease;
 
 }
 
@@ -104,7 +127,6 @@
     justify-content:center;
     gap:70px;
     margin-top:70px;
-    animation:slideUp 2s ease;
     text-align:center;
 }
 
@@ -142,7 +164,7 @@
         font-size:50px;
     }
 
-    .hero p{
+    .heroDescription{
         width:100%;
         font-size:16px;
     }
