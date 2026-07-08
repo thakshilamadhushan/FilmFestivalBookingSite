@@ -1,0 +1,500 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body {
+    background:#080808;
+}
+
+.ticket-page {
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* SUCCESS HEADER */
+.success-header {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.check-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(1, 99, 34, 0.411);
+    color: #00ff40;
+    border: 1px solid #01a129;
+    box-shadow: 0 0 20px rgba(0, 255, 64, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-weight: bold;
+}
+
+.success-header h1 {
+    margin: 10px 0 5px;
+    font-size: 28px;
+}
+
+.success-header p {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.ticket-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.ticket{
+    width:100%;
+    max-width:850px;
+    min-width: 360px;
+    background:#171311;
+    border:1px solid rgba(255,197,61,.25);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 25px 60px rgba(0,0,0,.5);
+}
+
+/* HEADER */
+
+.ticket-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px 20px;
+    background:#26211d;
+}
+
+.ticketfestival{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.ticketlogo{
+    width:40px;
+    height:40px;
+    background:#ffbb33;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    color:#111;
+}
+
+.ticketlogoname{
+    display:flex;
+    flex-direction:column;
+    margin-left:15px;
+}
+
+.ticketfestival h2{
+    color:#ffcc4d;
+    font-size:18px;
+    font-weight:700;
+}
+
+.ticketfestival span{
+    letter-spacing:3px;
+    font-size:10px;
+    color:#82745c;
+}
+
+.ticketbookingid{
+    text-align:right;
+}
+
+.ticketbookingid small{
+    color:#71685d;
+    font-size:12px;
+}
+
+.ticketbookingid h3{
+    font-size:15px;
+    color:#ffcc4d;
+}
+
+/* BODY */
+
+.ticket-body{
+    display:flex;
+}
+
+.poster{
+    width:250px;
+}
+
+.poster img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.ticketdetails{
+    flex:1;
+    padding:30px 20px;
+}
+
+.ticketdetails h1{
+    font-size:25px;
+    color:white;
+    font-weight:800;
+}
+
+.ticketdetails h4{
+    color:#ffcc4d;
+    font-size:15px;
+    margin-bottom:20px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    }
+
+.info-grid span{
+    display:block;
+    font-size:10px;
+    letter-spacing:2px;
+    color:#7b7269;
+}
+
+.info-grid p{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:white;
+    font-weight:600;
+    font-size:12px;
+}
+
+.info-grid svg{
+    color:#ffcc4d;
+}
+
+.ticketseat{
+    margin-top:20px;
+}
+
+.ticketseat span{
+    display:block;
+    font-size:10px;
+    letter-spacing:2px;
+    color:#7b7269;
+}
+
+.ticketseat button{
+    background:#5b4515;
+    color:#ffd24d;
+    border:1px solid #c49a32;
+    padding:5px 10px;
+    width:fit-content;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:500;
+    cursor:default;
+    margin-right: 5px;
+}
+
+/* Divider */
+
+.divider{
+    position:relative;
+    border-top:2px dashed #38332f ;
+    margin:0;
+}
+
+.divider span{
+    position:absolute;
+    width:36px;
+    height:36px;
+    background:#080808;
+    border-radius:50%;
+    top:-18px;
+}
+
+.divider span:first-child{
+    left:-20px;
+}
+
+.divider span:last-child{
+    right:-20px;
+}
+
+/* Footer */
+
+.ticket-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    padding:25px;
+}
+
+.ticketstatus h2{
+    color:#18c75a;
+    font-size:18px;
+    margin-bottom: 8px;
+}
+
+.ticketstatus p{
+    color:#aaa;
+    font-size:13px;
+}
+
+.ticketstatus small{
+    display:block;
+    color:#666;
+    font-size: 12px;
+}
+
+.price{
+    margin-top:25px;
+    color:#18c75a;
+    font-size:20px;
+}
+
+.qr{
+    text-align:center;
+}
+
+.qr img{
+    width:90px;
+    background-color: white;
+}
+
+.qr span{
+    display:block;
+    font-size: 10px;
+    color:#6b625a;
+}
+
+/* BUTTONS */
+.ticketactions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ticketactions button {
+  padding: 10px 18px;
+  width: fit-content;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.image {
+  background: #ffb400;
+  color: #000;
+}
+
+.another {
+  background: transparent;
+  color: #ffb400;
+  border: 1px solid #ffb400;
+}
+
+
+/* RESPONSIVE */
+@media screen and (max-width:768px){
+
+.ticket-page{
+    padding:20px 10px;
+}
+
+.success-header{
+    margin-top:60px;
+}
+
+.success-header h1{
+    font-size:24px;
+}
+
+.success-header p{
+    font-size:11px;
+}
+
+.ticket-wrapper{
+    padding:20px 0;
+}
+
+.ticket{
+    width:100%;
+    border-radius:16px;
+}
+
+.ticket-header{
+    text-align:left;
+    padding:10px;
+}
+
+.ticketlogoname{
+    margin-left:0;
+    margin-top:10px;
+}
+
+.ticketlogo{
+    width:35px;
+    height:35px;
+    font-size:18px;
+    margin-right:10px;
+}
+
+.ticketfestival h2{
+    font-size:15px;
+}
+
+.ticketfestival span{
+    font-size:9px;
+    letter-spacing:0;
+}
+
+.ticketbookingid{
+    text-align:right;
+}
+
+.ticketbookingid small{
+    font-size:10px;
+}
+
+.ticketbookingid h3{
+    font-size:13px;
+}
+
+.ticket-body{
+    flex-direction:column;
+}
+
+.poster{
+    width:100%;
+    height:250px;
+}
+
+.poster img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.ticketdetails{
+    padding:20px;
+}
+
+.ticketdetails h1{
+    font-size:24px;
+    text-align:left;
+}
+
+.ticketdetails h4{
+    text-align:left;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.info-grid{
+    gap:5px;
+}
+
+.info-grid div{
+    text-align:left;
+}
+
+.info-grid p{
+    justify-content:left;
+}
+
+.ticketseat{
+    text-align:left;
+}
+
+.ticket-footer{
+    align-items:left;
+    text-align:left;
+}
+
+.price{
+    margin-top:10px;
+    font-size:18px;
+}
+
+.qr img{
+    width:80px;
+}
+
+.ticketactions{
+    width:100%;
+}
+
+.ticketactions button{
+    width:fit-content;
+}
+
+}
+
+@media screen and (max-width:480px){
+
+.ticketdetails{
+    padding:15px;
+}
+
+.ticketdetails h1{
+    font-size:20px;
+}
+
+.ticketdetails h4{
+    font-size:14px;
+}
+
+.info-grid span,
+.ticketseat span{
+    font-size:9px;
+}
+
+.info-grid p{
+    font-size:11px;
+}
+
+.ticketstatus h2{
+    font-size:16px;
+}
+
+.ticketstatus p{
+    font-size:11px;
+}
+
+.price{
+    font-size:16px;
+}
+
+.qr img{
+    width:70px;
+}
+
+.check-icon{
+    width:45px;
+    height:45px;
+}
+
+.success-header h1{
+    font-size:22px;
+}
+
+}

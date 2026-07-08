@@ -6,6 +6,7 @@ import Hero from "./components/Hero/hero";
 import Movies from "./components/Movies/movies";
 import Footer from "./components/Footer/footer";
 import BookingPage from "./components/Booking/booking";
+import BookedTicket from "./components/Ticket/bookedTicket"
 
 import "./App.css";
 
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<BookingPage />} />
+        <Route path="/bookedticket" element={<BookedTicket/>}/>
       </Routes>
 
       <Footer />

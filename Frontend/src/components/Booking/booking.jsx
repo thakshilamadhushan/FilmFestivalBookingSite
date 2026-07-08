@@ -34,6 +34,7 @@ export default function Booking() {
     phone: "",
     type: "",
     time: "",
+    paymentSlip: null,
   });
 
   const toggleSeat = (seat) => {

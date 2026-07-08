@@ -8,6 +8,14 @@ export default function BookingForm({ formData, setFormData }) {
     });
   };
 
+  // Handle file upload
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      paymentSlip: e.target.files[0],
+    });
+  };
+
   return (
     <div className="booking-form card">
 
@@ -58,21 +66,6 @@ export default function BookingForm({ formData, setFormData }) {
           />
         </div>
 
-        {/* Type */}
-        <div className="input-group">
-          <label>BOOKING TYPE</label>
-
-          <select
-            name="type"
-            value={formData.type}
-            onChange={handleChange}
-          >
-            <option value="">Select Type</option>
-            <option value="Single">Single</option>
-            <option value="Couple">Couple</option>
-          </select>
-        </div>
-
         {/* Time */}
         <div className="input-group">
           <label>TIME SLOT</label>
@@ -90,6 +83,53 @@ export default function BookingForm({ formData, setFormData }) {
             <option>07:00 PM</option>
           </select>
         </div>
+
+        {/* Payment Type */}
+        <div className="input-group">
+          <label>PAYMENT TYPE</label>
+
+          <select
+            name="payment"
+            value={formData.payment}
+            onChange={handleChange}
+          >
+            <option value="">Select Method</option>
+            <option> Bank Payment</option>
+            <option> Meet Agent</option>
+          </select>
+        </div>
+        
+        {/* Show if Bank Payment is selected */}
+        {formData.payment === "Bank Payment" && (
+          <div className="input-group full">
+            <label>PAYMENT SLIP</label>
+            <input
+              type="file"
+              name="paymentSlip"
+              accept=".jpg,.jpeg,.png,.pdf"
+              onChange={handleFileChange}
+            />
+            {formData.paymentSlip && (
+              <small className="file-name">
+                Selected: {formData.paymentSlip.name}
+              </small>
+            )}
+          </div>
+        )}
+
+        {/* Show if Meet Agent is selected */}
+        {formData.payment === "Meet Agent" && (
+          <div className="input-group full">
+            <label>AGENT CODE</label>
+            <input
+              type="text"
+              name="agentCode"
+              placeholder="Enter Agent Code"
+              value={formData.agentCode}
+              onChange={handleChange}
+            />
+          </div>
+        )}
 
       </div>
 

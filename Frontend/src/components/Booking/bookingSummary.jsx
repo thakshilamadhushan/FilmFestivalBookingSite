@@ -1,18 +1,15 @@
 import "./bookingSummary.css";
-import {
-  FaUser,
-  FaPhoneAlt,
-  FaCalendarAlt,
-  FaClock,
-  FaChair,
-} from "react-icons/fa";
+import {FaUser,FaPhoneAlt,FaCalendarAlt,FaClock,FaMoneyBill} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function BookingSummary({ formData, seats }) {
+
+  const navigate = useNavigate();
   const isComplete =
     formData.name &&
     formData.year &&
     formData.phone &&
-    formData.type &&
+    formData.payment &&
     formData.time &&
     seats.length > 0;
 
@@ -48,10 +45,10 @@ export default function BookingSummary({ formData, seats }) {
         </div>
 
         <div className="summary-item">
-          <FaChair />
+          <FaMoneyBill />
           <div>
-            <small>Booking Type</small>
-            <p>{formData.type || "--"}</p>
+            <small>Payment Method</small>
+            <p>{formData.payment || "--"}</p>
           </div>
         </div>
 
@@ -96,6 +93,7 @@ export default function BookingSummary({ formData, seats }) {
       <button
         className="confirm-btn"
         disabled={!isComplete}
+        onClick={() => navigate("/bookedticket")}
       >
         Confirm Booking
       </button>
