@@ -1,0 +1,21 @@
+# Logs and temporary files
+*.log
+*.tmp
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Environment variables and secrets
+.env
+.env.local
+
+# Dependencies (uncomment your language/framework)
+node_modules/
+__pycache__/
+.venv/
+target/
+
+# IDE / Editor configs
+.vscode/
+.idea/
