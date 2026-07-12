@@ -15,7 +15,7 @@ border-color:#ffb820;
 
 }
 
-.poster{
+.moviecard-poster{
 
 height:380px;
 background-size:cover;
@@ -25,7 +25,7 @@ position:relative;
 
 }
 
-.poster::after{
+.moviecard-poster::after{
 
 content:"";
 
@@ -63,6 +63,7 @@ border-radius:30px;
 color:#FFD43B;
 display:flex;
 gap:8px;
+width: fit-content;
 align-items:center;
 
 }

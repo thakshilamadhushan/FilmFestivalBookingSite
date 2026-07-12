@@ -33,18 +33,15 @@
 }
 
 .input-group label{
-
     color:#9a9a9a;
     font-size:11px;
     letter-spacing:1px;
     margin-bottom:10px;
     font-weight:600;
-
 }
 
 .input-group input,
 .input-group select{
-
     background:#232323;
     border:1px solid #333;
     border-radius:10px;
@@ -53,27 +50,20 @@
     color:white;
     font-size:15px;
     transition:.3s;
-
 }
 
 .input-group input::placeholder{
-
     color:#666;
-
 }
 
 .input-group input:focus,
 .input-group select:focus{
-
     border:1px solid #FFC93C;
     box-shadow:0 0 0 3px rgba(255,201,60,.12);
-
 }
 
 .input-group select{
-
     cursor:pointer;
-
 }
 
 .input-group input[type="file"] {
@@ -88,6 +78,19 @@
   margin-top: 8px;
   color: #666;
   font-size: 0.85rem;
+}
+
+.BankAccounts{
+    display: flex;
+    justify-content: space-between;
+}
+
+.peoples{
+    margin-left: 50px;
+}
+
+.peoples, .boc p{
+    font-size: 15px;
 }
 
 @media(max-width:768px){
@@ -114,6 +117,14 @@ padding:22px;
 
 font-size:24px;
 
+}
+
+.peoples{
+    margin-left: 10px;
+}
+
+.peoples, .boc p{
+    font-size: 12px;
 }
 
 }

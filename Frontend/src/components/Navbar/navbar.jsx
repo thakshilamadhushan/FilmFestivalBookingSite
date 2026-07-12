@@ -24,8 +24,7 @@ function Navbar() {
       <ul className={menuOpen ? "navLinks active" : "navLinks"}>
         <li><a href="/#home">Home</a></li>
         <li><a href="/#movies">Movies</a></li>
-        <li><a href="#">Download Ticket</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="/retrieveticket">Download Ticket</a></li>
       </ul>
 
       <div

@@ -7,6 +7,7 @@ import Movies from "./components/Movies/movies";
 import Footer from "./components/Footer/footer";
 import BookingPage from "./components/Booking/booking";
 import BookedTicket from "./components/Ticket/bookedTicket"
+import RetrieveTicket from "./components/RetrieveTicket/retrieveTicket"
 
 import "./App.css";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/bookedticket" element={<BookedTicket/>}/>
+        <Route path="/retrieveticket" element={<RetrieveTicket/>}/>
       </Routes>
 
       <Footer />

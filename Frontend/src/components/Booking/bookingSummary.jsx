@@ -87,7 +87,7 @@ export default function BookingSummary({ formData, seats }) {
 
       <div className="price-row">
         <span>Booking Fee</span>
-        <strong>FREE</strong>
+        <strong>{70*seats.length}</strong>
       </div>
 
       <button

@@ -10,7 +10,7 @@ function MovieCard({movie}){
 
         <div className="movieCard">
 
-            <div className="poster" style={{backgroundImage:`url(${movie.poster})`}}>
+            <div className="moviecard-poster" style={{backgroundImage:`url(${movie.poster})`}}>
 
                 <div className="top">
 

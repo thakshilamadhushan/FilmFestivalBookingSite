@@ -102,6 +102,21 @@ export default function BookingForm({ formData, setFormData }) {
         {/* Show if Bank Payment is selected */}
         {formData.payment === "Bank Payment" && (
           <div className="input-group full">
+            <label>Bank Accounts</label>
+            <div className="BankAccounts">
+              <div className="peoples">
+                <p>Peopels' Bank</p>
+                <p>Name: Thakshila Madhushan</p>
+                <p>Acc. Number: 1234567890</p>
+                <p>Branch: Yakkala</p>
+              </div>
+              <div className="boc">
+                <p>Bank of Celon</p>
+                <p>Name: Thakshila Madhushan</p>
+                <p>Acc. Number: 1234567890</p>
+                <p>Branch: Yakkala</p>
+              </div>
+            </div>
             <label>PAYMENT SLIP</label>
             <input
               type="file"

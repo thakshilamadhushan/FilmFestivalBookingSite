@@ -1,0 +1,347 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Inter",sans-serif;
+}
+
+body{
+    background:#080808;
+    color:white;
+}
+
+.retrieve-page{
+    min-height:100vh;
+    padding:0px 8%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.retrieve-header{
+    text-align:center;
+    margin-top: 100px;
+    margin-bottom:40px;
+}
+
+.ticket-icon{
+    width:80px;
+    height:80px;
+    background:#f7b731;
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    margin-bottom:22px;
+    box-shadow:0 0 35px rgba(247,183,49,.35);
+}
+
+.ticket-icon svg{
+    color:black;
+}
+
+.retrieve-header h1{
+    font-size:40px;
+    font-weight:800;
+}
+
+.retrieve-header p{
+    margin-top:12px;
+    color:#b8b8b8;
+    font-size:15px;
+}
+
+.search-card{
+    width:100%;
+    max-width:700px;
+    background:#171717;
+    padding:20px;
+    border-radius:22px;
+    border:1px solid #2b2b2b;
+}
+
+.search-card label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    color:#d4d4d4;
+    margin-bottom:15px;
+}
+
+.search-box{
+    display:flex;
+    gap:15px;
+}
+
+.number-input-box{
+    flex:1;
+    display:flex;
+    align-items:center;
+    background:#232323;
+    padding:0 18px;
+    border-radius:18px;
+    border:1px solid #343434;
+}
+
+.number-input-box svg{
+    color:#777;
+}
+
+.number-input-box input{
+    flex:1;
+    height:50px;
+    background:none;
+    border:none;
+    outline:none;
+    color:white;
+    font-size:15px;
+    padding-left:15px;
+}
+
+.Ticket-Search-btn{
+    border:none;
+    background:#f8be38;
+    padding:0 30px;
+    width: fit-content;
+    border-radius:18px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition:.35s;
+    box-shadow:0 0 25px rgba(248,190,56,.3);
+}
+
+.Ticket-Search-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 35px rgba(248,190,56,.5);
+}
+
+.empty-state{
+    margin-top:110px;
+    text-align:center;
+    font-size: 16px;
+    opacity:.35;
+}
+
+.empty-state svg{
+    width: 40px;
+    margin-bottom:10px;
+}
+
+.found{
+    margin-top:40px;
+    width:700px;
+    max-width:100%;
+    font-weight:500;
+}
+
+.found span{
+    color:#f7b731;
+    font-weight:700;
+}
+
+.search-booking-card{
+    margin-top:18px;
+    width:700px;
+    max-width:100%;
+    display:flex;
+    background:#171717;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid #2d2d2d;
+    transition:.35s;
+}
+
+.ticket-poster{
+    width:150px;
+    object-fit:cover;
+}
+
+.booking-info{
+    padding:22px;
+    flex:1;
+}
+
+.ticket-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.ticket-top h2{
+    font-size:20px;
+}
+
+.ticket-top small{
+    color:#f8be38;
+    font-size:12px;
+}
+
+.ticket-status{
+    background:#123d23;
+    color:#32d96a;
+    padding:0px 10px;
+    border-radius:30px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.ticket-details{
+    margin-top:5px;
+}
+
+.ticket-details p{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size: 15px;
+    color:#d2d2d2;
+}
+
+.ticket-details strong{
+    display:block;
+    margin-top:12px;
+    font-size:12px;
+    color:#f8be38;
+}
+
+.ticket-buttons{
+    display:flex;
+    gap:12px;
+    margin-top:25px;
+    flex-wrap:wrap;
+}
+
+.ticket-buttons button{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    width: fit-content;
+    padding:12px 20px;
+    background:#222;
+    border:1px solid #3d3d3d;
+    border-radius:50px;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.ticket-buttons button:hover{
+    background:#f8be38;
+    color:black;
+}
+
+/* Tablet */
+
+@media(max-width:768px){
+
+.retrieve-header{
+    margin-top: 50px;
+}
+
+.retrieve-header h1{
+    font-size:42px;
+}
+
+.retrieve-header p{
+    font-size:17px;
+}
+
+.search-box{
+flex-direction:column;
+align-items: center;
+}
+
+.Ticket-Search-btn{
+height:50px;
+justify-content:center;
+
+}
+
+.search-booking-card{
+flex-direction:column;
+
+}
+
+.ticket-poster{
+width:100%;
+height:260px;
+
+}
+
+.top{
+
+flex-direction:column;
+gap:15px;
+
+}
+
+}
+
+/* Mobile */
+
+@media(max-width:480px){
+
+.retrieve-page{
+
+padding:40px 15px;
+
+}
+
+.ticket-icon{
+
+width:70px;
+height:70px;
+
+}
+
+.retrieve-header h1{
+
+font-size:34px;
+
+}
+
+.retrieve-header p{
+
+font-size:15px;
+
+}
+
+.search-card{
+
+padding:20px;
+
+}
+
+.number-input-box input{
+
+font-size:16px;
+
+}
+
+.top h2{
+
+font-size:24px;
+
+}
+
+.ticket-buttons{
+
+flex-direction:column;
+
+}
+
+.ticket-buttons button{
+
+justify-content:center;
+width:100%;
+
+}
+
+}
