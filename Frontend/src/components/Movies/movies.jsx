@@ -1,8 +1,19 @@
+import { useEffect, useState } from "react";
 import "./movies.css";
 import movies from "../../data/movies";
 import MovieCard from "./movieCard";
 
 function Festival(){
+
+    const [movies,setMovies]=useState([]);
+
+    useEffect(()=>{
+
+        fetch("http://localhost:5000/api/movies")
+        .then(res=>res.json())
+        .then(data=>setMovies(data));
+
+    },[]);
 
     return(
 
