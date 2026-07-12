@@ -2,12 +2,12 @@ const movies = [
 
 {
 id:1,
-title:"Interstellar",
-genre:"Sci-Fi / Adventure",
-imdb:8.7,
-duration:"2h 49m",
-language:"English",
-poster:"https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+title:"Father",
+genre:"Action / Crime / Drama",
+imdb:8.3,
+duration:"1h 56m",
+language:"Sinhala",
+poster:"https://m.media-amazon.com/images/M/MV5BNWNkNTE0OWEtYmY2NC00OTM3LWI5MzAtODE0ZmU5YTY5MmYwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
 
 dates:[
 "Jul 16 2026",
