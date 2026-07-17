@@ -7,6 +7,10 @@ const movieSchema = new mongoose.Schema({
         required:true
     },
 
+    director:{
+        type:String,
+    },
+
     genre:{
         type:[String],
         required:true
@@ -22,6 +26,10 @@ const movieSchema = new mongoose.Schema({
 
     imdb:{
         type:Number
+    },
+
+    vote:{
+        type:String
     },
 
     poster:{

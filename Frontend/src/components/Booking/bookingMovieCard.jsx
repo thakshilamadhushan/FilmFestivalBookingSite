@@ -1,43 +1,59 @@
 import "./bookingMovieCard.css";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 export default function MovieCard() {
+
+  const { id } = useParams();
+
+  const [movie, setMovie] = useState(null);
+
+  useEffect(() => {
+
+      fetch(`http://localhost:5000/api/movies/${id}`)
+          .then(res => res.json())
+          .then(data => setMovie(data));
+
+  }, [id]);
+
+  if (!movie) {
+      return <h2>Loading...</h2>;
+  }
+  
   return (
     <div className="movie-card card">
 
       <div className="movie-image">
         <img
-          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=700"
-          alt="Movie"
+          src={movie.poster}
+          alt={movie.title}
         />
       </div>
 
       <div className="movie-content">
 
 
-        <h1>Veil of Silence</h1>
+        <h1>{movie.title}</h1>
 
         <p className="genre">
-          Drama / Mystery · 2h 08m
+          {movie.genre}
         </p>
 
         <p className="description">
-          A grieving journalist returns to her ancestral village after a
-          decade, only to unravel a buried truth about her mother's
-          disappearance. A slow-burning meditation on memory, guilt and the
-          courage to face what we'd rather forget.
+          {movie.description}
         </p>
 
         <div className="movie-info">
 
           <div>
             <small>DIRECTOR</small>
-            <h4>Kavya Suresh</h4>
+            <h4>{movie.director}</h4>
           </div>
 
           <div>
             <small>DURATION</small>
-            <h4>2h 08m</h4>
+            <h4>{movie.duration}</h4>
           </div>
 
           <div>
@@ -47,7 +63,7 @@ export default function MovieCard() {
 
           <div>
             <small>LANGUAGE</small>
-            <h4>Tamil / English</h4>
+            <h4>{movie.language}</h4>
           </div>
 
         </div>
@@ -60,9 +76,9 @@ export default function MovieCard() {
           <FaStar />
           <FaStar />
 
-          <span>4.8</span>
+          <span>{movie.imdb}</span>
 
-          <small>(412)</small>
+          <small>({movie.vote})</small>
 
         </div>
 
