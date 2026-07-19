@@ -3,23 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-export default function MovieCard() {
-
-  const { id } = useParams();
-
-  const [movie, setMovie] = useState(null);
-
-  useEffect(() => {
-
-      fetch(`http://localhost:5000/api/movies/${id}`)
-          .then(res => res.json())
-          .then(data => setMovie(data));
-
-  }, [id]);
-
-  if (!movie) {
-      return <h2>Loading...</h2>;
-  }
+export default function MovieCard({movie}) {
   
   return (
     <div className="movie-card card">

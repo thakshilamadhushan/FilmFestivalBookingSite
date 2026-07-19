@@ -2,7 +2,7 @@ import "./bookingSummary.css";
 import {FaUser,FaPhoneAlt,FaCalendarAlt,FaClock,FaMoneyBill} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-export default function BookingSummary({ formData, seats }) {
+export default function BookingSummary({ formData, seats, onBooking }) {
 
   const navigate = useNavigate();
   const isComplete =
@@ -93,7 +93,8 @@ export default function BookingSummary({ formData, seats }) {
       <button
         className="confirm-btn"
         disabled={!isComplete}
-        onClick={() => navigate("/bookedticket")}
+        onClick={onBooking}
+        
       >
         Confirm Booking
       </button>

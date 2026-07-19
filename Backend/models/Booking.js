@@ -4,28 +4,59 @@ const bookingSchema = new mongoose.Schema({
 
     movie:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Movie"
+        ref:"Movie",
+        required: true
     },
 
-    customerName:{
+    name:{
         type:String,
         required:true
     },
 
-    email:{
-        type:String,
-        required:true
+    studentYear: {
+        type: String,
+        required: true,
     },
 
-    phone:String,
+    mobileNumber: {
+        type: String,
+        required: true
+    },
 
-    bookingDate:String,
+    date: {
+        type: String,
+        required: true
+    },
 
-    bookingTime:String,
+    timeSlot: {
+        type: String,
+        required: true
+    },
 
-    seats:[String],
+    selectedSeats: [{
+        type: String
+    }],
 
-    total:Number,
+    totalAmount: {
+        type: Number,
+        required: true
+    },
+
+    paymentType: {
+        type: String,
+        required: true
+    },
+
+    paymentSlip: {
+        type: String,
+        default: null
+    },
+
+    bookingStatus: {
+        type: String,
+        enum: ["Pending", "Confirmed", "Rejected"],
+        default: "Pending"
+    },
 
     createdAt:{
         type:Date,

@@ -1,47 +1,47 @@
 const Booking = require("../models/Booking");
 
-const createBooking = async(req,res)=>{
+exports.createBooking = async (req, res) => {
 
-    try{
+    try {
 
-        const booking = await Booking.create(req.body);
+        const booking = new Booking({
 
-        res.status(201).json(booking);
+            movie: req.body.movie,
 
-    }
+            name: req.body.name,
 
-    catch(err){
+            studentYear: req.body.studentYear,
 
-        res.status(400).json({
-            message:err.message
+            mobileNumber: req.body.mobileNumber,
+
+            date: req.body.date,
+
+            timeSlot: req.body.timeSlot,
+
+            selectedSeats: req.body.selectedSeats,
+
+            totalAmount: req.body.totalAmount,
+
+            paymentType: req.body.paymentType,
+
+            paymentSlip: req.file ? req.file.filename : null
+
         });
 
-    }
+        await booking.save();
 
-}
+        res.status(201).json({
+            success: true,
+            booking
+        });
 
-const getBookings = async(req,res)=>{
-
-    try{
-
-        const bookings = await Booking.find()
-        .populate("movie");
-
-        res.json(bookings);
-
-    }
-
-    catch(err){
+    } catch (error) {
 
         res.status(500).json({
-            message:err.message
+            success: false,
+            message: error.message
         });
 
     }
 
-}
-
-module.exports={
-    createBooking,
-    getBookings
-}
+};

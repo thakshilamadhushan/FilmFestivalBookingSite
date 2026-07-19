@@ -1,5 +1,6 @@
 import "./booking.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import MovieCard from "./bookingMovieCard";
 import BookingForm from "./bookingForm";
@@ -32,9 +33,10 @@ export default function Booking() {
     name: "",
     year: "",
     phone: "",
-    type: "",
     time: "",
+    payment: "",
     paymentSlip: null,
+    agentCode: "",
   });
 
   const toggleSeat = (seat) => {
@@ -50,6 +52,70 @@ export default function Booking() {
     setSelectedSeats([...selectedSeats, seat]);
   };
 
+  // get movie details
+  const { id } = useParams();
+
+  const [movie, setMovie] = useState(null);
+
+  useEffect(() => {
+
+      fetch(`http://localhost:5000/api/movies/${id}`)
+          .then(res => res.json())
+          .then(data => setMovie(data));
+
+  }, [id]);
+
+  if (!movie) {
+      return <h2>Loading...</h2>;
+  }
+
+
+  const handleBooking = async () => {
+
+    const bookingData = new FormData();
+
+    bookingData.append("movie", id);
+    bookingData.append("name", formData.name);
+    bookingData.append("studentYear", formData.year);
+    bookingData.append("mobileNumber", formData.phone);
+    bookingData.append("date", movie.dates[0]);
+    bookingData.append("timeSlot", formData.time);
+    bookingData.append("selectedSeats", JSON.stringify(selectedSeats));
+    bookingData.append("paymentType", formData.payment);
+    bookingData.append("totalAmount", 70 * selectedSeats.length);
+
+    if (formData.paymentSlip) {
+      bookingData.append(
+        "paymentSlip",
+        formData.paymentSlip
+      );
+    }
+
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:5000/api/bookings",
+        {
+          method: "POST",
+          body: bookingData
+        }
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+
+      if(data.success){
+        navigate("/ticket");
+      }
+
+    } catch(error){
+      console.log(error);
+    }
+
+  };
+
   return (
     <section className="booking-page">
 
@@ -62,7 +128,7 @@ export default function Booking() {
 
         <div className="booking-left">
 
-          <MovieCard />
+          <MovieCard movie={movie}/>
 
           <BookingForm
             formData={formData}
@@ -82,6 +148,7 @@ export default function Booking() {
           <BookingSummary
             formData={formData}
             seats={selectedSeats}
+            onBooking={handleBooking}
           />
 
         </div>

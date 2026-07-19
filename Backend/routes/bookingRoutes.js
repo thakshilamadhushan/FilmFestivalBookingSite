@@ -2,16 +2,22 @@ const express = require("express");
 
 const router = express.Router();
 
+const upload = require("../middleware/upload");
+
+
 const {
-
-    createBooking,
-
-    getBookings
-
+    createBooking
 }=require("../controllers/bookingController");
 
-router.post("/",createBooking);
 
-router.get("/",getBookings);
+
+// Booking form submit
+router.post(
+    "/",
+    upload.single("paymentSlip"),
+    createBooking
+);
+
+
 
 module.exports=router;
