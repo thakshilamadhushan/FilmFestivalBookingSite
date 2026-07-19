@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./movies.css";
-import movies from "../../data/movies";
 import MovieCard from "./movieCard";
 
 function Festival(){

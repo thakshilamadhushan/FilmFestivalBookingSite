@@ -7,26 +7,10 @@ import BookingForm from "./bookingForm";
 import SeatMap from "./seatMap";
 import BookingSummary from "./bookingSummary";
 
-const occupiedSeats = [
-  "A2",
-  "A5",
-  "A8",
-  "B3",
-  "B6",
-  "B9",
-  "C1",
-  "C4",
-  "D3",
-  "E2",
-  "E8",
-  "F1",
-  "F6",
-  "G2",
-  "G7",
-  "H4",
-];
-
 export default function Booking() {
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+  const [occupiedSeats, setOccupiedSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -52,17 +36,26 @@ export default function Booking() {
     setSelectedSeats([...selectedSeats, seat]);
   };
 
-  // get movie details
-  const { id } = useParams();
+  // get movie details 
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [movieRes, seatsRes] = await Promise.all([
+          fetch(`http://localhost:5000/api/movies/${id}`),
+          fetch(`http://localhost:5000/api/shows/movie/${id}`)
+        ]);
 
-  const [movie, setMovie] = useState(null);
+        const movieData = await movieRes.json();
+        const seatsData = await seatsRes.json();
 
-  useEffect(() => {
+        setMovie(movieData);
+        setOccupiedSeats(seatsData.seats || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-      fetch(`http://localhost:5000/api/movies/${id}`)
-          .then(res => res.json())
-          .then(data => setMovie(data));
-
+    fetchData();
   }, [id]);
 
   if (!movie) {

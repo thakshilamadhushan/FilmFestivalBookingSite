@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const movieRoutes = require("./routes/movieRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
+const showRoutes=require("./routes/showRoutes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ mongoose
 
 app.use("/api/movies", movieRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/shows", showRoutes);
 
 const PORT = process.env.PORT || 5000;
 
