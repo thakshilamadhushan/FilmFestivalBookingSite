@@ -1,6 +1,5 @@
 const Show = require("../models/Show");
 
-
 // Get seats for a show
 exports.getShowSeats = async(req,res)=>{
     try{

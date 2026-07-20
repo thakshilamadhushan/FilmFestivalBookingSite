@@ -84,7 +84,6 @@ export default function Booking() {
       );
     }
 
-
     try {
 
       const response = await fetch(
