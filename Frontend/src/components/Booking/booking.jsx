@@ -6,6 +6,7 @@ import MovieCard from "./bookingMovieCard";
 import BookingForm from "./bookingForm";
 import SeatMap from "./seatMap";
 import BookingSummary from "./bookingSummary";
+import BookingPendingPopup from "./BookingPendingPopup";
 
 export default function Booking() {
   const { id } = useParams();
@@ -22,6 +23,7 @@ export default function Booking() {
     paymentSlip: null,
     agentCode: "",
   });
+  const [showPopup, setShowPopup] = useState(false);
 
   const toggleSeat = (seat) => {
     if (occupiedSeats.includes(seat)) return;
@@ -99,7 +101,7 @@ export default function Booking() {
       console.log(data);
 
       if(data.success){
-        navigate("/ticket");
+        setShowPopup(true);
       }
 
     } catch(error){
@@ -146,6 +148,13 @@ export default function Booking() {
         </div>
 
       </div>
+      <BookingPendingPopup
+          isOpen={showPopup}
+          onClose={() => {
+              setShowPopup(false);
+              navigate("/");
+          }}
+      />
 
     </section>
   );
