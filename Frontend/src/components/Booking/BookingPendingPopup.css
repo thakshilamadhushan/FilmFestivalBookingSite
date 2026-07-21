@@ -11,7 +11,8 @@
 .popup-container {
     width: 420px;
     max-width: 90%;
-    background: #fff;
+    background: #171311;
+    border:1px solid rgba(255,197,61,.3);
     border-radius: 18px;
     padding: 35px 30px;
     text-align: center;
@@ -27,11 +28,11 @@
 
 .popup-container h2 {
     margin-bottom: 15px;
-    color: #222;
+    color: #ffc107;
 }
 
 .popup-container p {
-    color: #555;
+    color: #ccc;
     line-height: 1.7;
 }
 
@@ -44,15 +45,15 @@
     padding:12px 35px;
     border:none;
     border-radius:8px;
-    background:#e50914;
-    color:#fff;
+    background:#ffc107;
+    color:#171311;
     font-size:16px;
     cursor:pointer;
     transition:.3s;
 }
 
 .popup-btn:hover{
-    background:#b20710;
+    background:#ffac07;
 }
 
 @keyframes popupScale{

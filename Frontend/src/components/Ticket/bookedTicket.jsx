@@ -1,16 +1,20 @@
 import React from "react";
 import * as htmlToImage from "html-to-image";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useRef } from "react";
+import QRCode from "react-qr-code";
 import "./bookedTicket.css";
 import qr from "../../assets/QR.png";
-import {FaFilm,FaCalendarAlt,FaClock,FaMapMarkerAlt,FaMobileAlt,FaChair,FaUserGraduate,FaTicketAlt} from "react-icons/fa";
+import {FaFilm,FaCalendarAlt,FaClock,FaMapMarkerAlt,FaMobileAlt,FaChair,FaUserGraduate,FaTicketAlt,FaMoneyBill,FaCalendar} from "react-icons/fa";
 
 const BookedTicket = () => {
 
     const navigate = useNavigate();
     const ticketRef = useRef();
     const captureRef = useRef(null);
+    const location = useLocation();
+    const booking = location.state;
     const downloadTicket = async () => {
       if (!ticketRef.current) return;
 
@@ -54,14 +58,14 @@ const BookedTicket = () => {
 
               <div className="ticketlogoname">
                 <h2>FIHST Film Festival</h2>
-                <span>OFFICIAL ENTRY TICKET · 2025</span>
+                <span>OFFICIAL ENTRY TICKET · 2026</span>
               </div>
 
             </div>
 
             <div className="ticketbookingid">
               <small>BOOKING ID</small>
-              <h3>FFF25-66W9DR</h3>
+              <h3>{booking.bookingId}</h3>
             </div>
 
           </div>
@@ -71,25 +75,25 @@ const BookedTicket = () => {
           <div className="ticket-body">
 
             <div className="poster">
-              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=700" alt="poster" />
+              <img src={booking.movie.poster} alt="poster" />
             </div>
 
             <div className="ticketdetails">
 
-              <h1>Veil of Silence</h1>
+              <h1>{booking.movie.title}</h1>
 
-              <h4>Drama / Mystery</h4>
+              <h4>{booking.movie.genre}</h4>
 
               <div className="info-grid">
 
                 <div>
                   <span>DATE</span>
-                  <p><FaCalendarAlt /> Jul 13, 2025</p>
+                  <p><FaCalendarAlt /> {booking.date}</p>
                 </div>
 
                 <div>
                   <span>TIME</span>
-                  <p><FaClock /> 10:00 AM</p>
+                  <p><FaClock /> {booking.timeSlot}</p>
                 </div>
 
                 <div>
@@ -98,28 +102,28 @@ const BookedTicket = () => {
                 </div>
 
                 <div>
-                  <span>TYPE</span>
-                  <p><FaFilm /> Single</p>
+                  <span>PAYMENT</span>
+                  <p><FaMoneyBill /> {booking.paymentType}</p>
                 </div>
 
                 <div>
                   <span>STUDENT</span>
-                  <p><FaUserGraduate /> Name</p>
+                  <p><FaUserGraduate /> {booking.name}</p>
                 </div>
 
                 <div>
                   <span>YEAR</span>
-                  <p>Year 2</p>
+                  <p><FaCalendar/>{booking.studentYear}</p>
                 </div>
 
                 <div>
                   <span>MOBILE</span>
-                  <p><FaMobileAlt /> 69526352</p>
+                  <p><FaMobileAlt /> {booking.mobileNumber}</p>
                 </div>
 
                 <div>
                   <span>BOOKED</span>
-                  <p><FaTicketAlt /> 5 Jul 2026, 9:15 PM</p>
+                  <p><FaTicketAlt /> {booking.date}{" - "}{booking.timeSlot}</p>
                 </div>
 
               </div>
@@ -128,8 +132,11 @@ const BookedTicket = () => {
 
                 <span>SEAT NUMBERS</span>
 
-                <button>H2</button>
-                <button>H3</button>
+                {booking.selectedSeats.map((seat, index) => (
+                    <button key={index}>
+                        {seat}
+                    </button>
+                ))}
 
               </div>
 
@@ -152,19 +159,32 @@ const BookedTicket = () => {
 
               <h2>● CONFIRMED</h2>
 
-              <p>1 seat · Students' Center</p>
+              <p>
+                {booking.selectedSeats.length}{" "}
+                {booking.selectedSeats.length > 1 ? "Seats" : "Seat"} · Students' Center
+              </p>
 
-              <small>FFF25-66W9DR</small>
+              <small>{booking.bookingId}</small>
 
               <div className="price">
-                Rs. 60.00
+                Rs. {booking.totalAmount}.00
               </div>
 
             </div>
 
             <div className="qr">
 
-              <img src={qr} alt="" />
+              <div className="QRImg">
+              <QRCode className="QR"
+                  value={JSON.stringify({
+                      bookingId: booking.bookingId,
+                      name: booking.name,
+                      mobile: booking.mobileNumber,
+                      movie: booking.movie.title
+                  })}
+                  size={110}
+              />
+              </div>
 
               <span>Scan at entrance</span>
 

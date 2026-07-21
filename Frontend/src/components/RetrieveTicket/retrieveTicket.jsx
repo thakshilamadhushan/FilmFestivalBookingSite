@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./retrieveTicket.css";
 import {Search,Phone,Ticket,Calendar,MapPin,Download,Eye} from "lucide-react";
@@ -6,6 +7,8 @@ import {Search,Phone,Ticket,Calendar,MapPin,Download,Eye} from "lucide-react";
 const RetrieveTicket = () => {
   const [mobile, setMobile] = useState("");
   const [bookings, setBookings] = useState([]);
+  const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSearch = async () => {
 
@@ -91,7 +94,7 @@ const RetrieveTicket = () => {
 
           {bookings.map((booking)=> (
 
-          <div className="search-booking-card">
+          <div className="search-booking-card" key={booking._id}>
 
             <img src={booking.movie.poster} alt="" className="ticket-poster"/>
 
@@ -130,9 +133,20 @@ const RetrieveTicket = () => {
                     {booking.bookingId} · Seats : {booking.selectedSeats.map((seat,index)=>( <span key={index}> {seat} </span>))}
                   </strong>
 
-                  <button>
-                    <Eye size={17} />
-                    View
+                  <button
+                      onClick={() => {
+
+                          if(booking.bookingStatus !== "Confirmed"){
+                              setShowPopup(true);
+                              return;
+                          }
+
+                          navigate("/bookedticket", { state: booking });
+
+                      }}
+                  >
+                      <Eye size={17} />
+                      View
                   </button>
               </div>
 
@@ -143,6 +157,25 @@ const RetrieveTicket = () => {
           ))}
         </>
       )}
+
+      {showPopup && (
+
+          <div className="ticket-popup-overlay">
+              <div className="ticket-popup">
+                  <div className="popup-icon">⏳</div>
+                  <h2>Ticket Pending</h2>
+
+                  <p>
+                      Your ticket is not confirmed yet.
+                      Please wait until your payment is approved.
+                  </p>
+
+                  <button onClick={() => setShowPopup(false)}>
+                      OK
+                  </button>
+              </div>
+          </div>
+          )}
     </section>
   );
 };

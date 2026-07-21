@@ -272,9 +272,14 @@ body {
     text-align:center;
 }
 
-.qr img{
-    width:90px;
+.QRImg{
+    padding: 5px;
     background-color: white;
+}
+
+.QR{
+    width: 80px;
+    height: 80px;
 }
 
 .qr span{
