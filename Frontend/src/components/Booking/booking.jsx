@@ -67,6 +67,42 @@ export default function Booking() {
 
   const handleBooking = async () => {
 
+      // Validation
+      if (!formData.name) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      if (!formData.year) {
+        alert("Please select your year.");
+        return;
+      }
+
+      if (!formData.phone) {
+        alert("Please enter your mobile number.");
+        return;
+      }
+
+      if (!formData.time) {
+        alert("Please select a time slot.");
+        return;
+      }
+
+      if (!formData.payment) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      if (formData.payment === "Bank Transfer" && !formData.paymentSlip) {
+        alert("Please upload your payment slip.");
+        return;
+      }
+
+      if (selectedSeats.length === 0) {
+        alert("Please select at least one seat.");
+        return;
+      }
+
     const bookingData = new FormData();
 
     bookingData.append("movie", id);
@@ -79,12 +115,7 @@ export default function Booking() {
     bookingData.append("paymentType", formData.payment);
     bookingData.append("totalAmount", 70 * selectedSeats.length);
 
-    if (formData.paymentSlip) {
-      bookingData.append(
-        "paymentSlip",
-        formData.paymentSlip
-      );
-    }
+    if (formData.paymentSlip) {bookingData.append("paymentSlip", formData.paymentSlip);}
 
     try {
 
@@ -102,10 +133,13 @@ export default function Booking() {
 
       if(data.success){
         setShowPopup(true);
+      } else {
+        alert(data.message || "Booking failed.");
       }
 
     } catch(error){
       console.log(error);
+      alert("Something went wrong.");
     }
 
   };

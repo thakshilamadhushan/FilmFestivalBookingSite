@@ -6,12 +6,13 @@ export default function BookingSummary({ formData, seats, onBooking }) {
 
   const navigate = useNavigate();
   const isComplete =
-    formData.name &&
-    formData.year &&
-    formData.phone &&
-    formData.payment &&
-    formData.time &&
-    seats.length > 0;
+    formData.name.trim() !== "" &&
+    formData.year !== "" &&
+    formData.phone.trim() !== "" &&
+    formData.time !== "" &&
+    formData.payment !== "" &&
+    seats.length > 0 &&
+    (formData.payment !== "Bank Transfer" || formData.paymentSlip);
 
   return (
     <div className="summary-card card">
