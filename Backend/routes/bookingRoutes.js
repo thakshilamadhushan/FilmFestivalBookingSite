@@ -1,15 +1,9 @@
 const express = require("express");
-
 const router = express.Router();
-
 const upload = require("../middleware/upload");
 
 
-const {
-    createBooking
-}=require("../controllers/bookingController");
-
-
+const {createBooking, getBookingByMobile}=require("../controllers/bookingController");
 
 // Booking form submit
 router.post(
@@ -18,6 +12,10 @@ router.post(
     createBooking
 );
 
-
+// Get booking by mobile number
+router.get(
+    "/ticket/:mobile",
+    getBookingByMobile
+);
 
 module.exports=router;

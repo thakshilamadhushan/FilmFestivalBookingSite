@@ -152,14 +152,14 @@ body{
     max-width:100%;
     display:flex;
     background:#171717;
-    border-radius:22px;
+    border-radius:18px;
     overflow:hidden;
     border:1px solid #2d2d2d;
     transition:.35s;
 }
 
 .ticket-poster{
-    width:150px;
+    width:160px;
     object-fit:cover;
 }
 
@@ -184,12 +184,33 @@ body{
 }
 
 .ticket-status{
-    background:#123d23;
-    color:#32d96a;
     padding:0px 10px;
     border-radius:30px;
     font-size:10px;
     font-weight:700;
+}
+
+/* Pending */
+.ticket-status.pending{
+    background:rgba(255,193,7,0.15);
+    color:#ffc107;
+    border:1px solid #ffc107;
+}
+
+
+/* Confirmed */
+.ticket-status.confirmed{
+    background:rgba(34,197,94,0.15);
+    color:#22c55e;
+    border:1px solid #22c55e;
+}
+
+
+/* Rejected */
+.ticket-status.rejected{
+    background:rgba(239,68,68,0.15);
+    color:#ef4444;
+    border:1px solid #ef4444;
 }
 
 .ticket-details{
@@ -216,6 +237,7 @@ body{
     gap:12px;
     margin-top:25px;
     flex-wrap:wrap;
+    justify-content: space-between;
 }
 
 .ticket-buttons button{

@@ -104,7 +104,7 @@ export default function Booking() {
       }
 
     const bookingData = new FormData();
-
+    
     bookingData.append("movie", id);
     bookingData.append("name", formData.name);
     bookingData.append("studentYear", formData.year);

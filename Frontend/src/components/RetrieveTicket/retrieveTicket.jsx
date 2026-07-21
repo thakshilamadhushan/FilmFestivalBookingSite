@@ -1,28 +1,33 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./retrieveTicket.css";
 import {Search,Phone,Ticket,Calendar,MapPin,Download,Eye} from "lucide-react";
 
 const RetrieveTicket = () => {
   const [mobile, setMobile] = useState("");
-  const [booking, setBooking] = useState(null);
+  const [bookings, setBookings] = useState([]);
 
-  const handleSearch = () => {
-    if (mobile === "123456") {
-      setBooking({
-        movie: "Veil of Silence",
-        genre: "Drama / Mystery",
-        date: "Jul 12, 2025",
-        time: "10:00 AM",
-        hall: "Hall A",
-        bookingId: "FFF25-71Y817",
-        seat: "H5",
-        status: "CONFIRMED",
-        poster:
-          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500"
-      });
-    } else {
-      setBooking(null);
-    }
+  const handleSearch = async () => {
+
+        try {
+
+            const res = await axios.get(
+                `http://localhost:5000/api/bookings/ticket/${mobile}`
+            );
+
+
+            setBookings(res.data.bookings);
+
+
+        } catch(error) {
+
+            console.log(error);
+
+            alert("Ticket not found");
+
+            setBookings([]);
+
+        }
   };
 
   return (
@@ -70,7 +75,7 @@ const RetrieveTicket = () => {
 
       </div>
 
-      {!booking ? (
+      {bookings.length === 0 ? (
         <div className="empty-state">
 
           <Search size={55} />
@@ -81,12 +86,14 @@ const RetrieveTicket = () => {
       ) : (
         <>
           <h3 className="found">
-            Found <span>1</span> booking
+            Found <span>{bookings.length}</span> booking
           </h3>
+
+          {bookings.map((booking)=> (
 
           <div className="search-booking-card">
 
-            <img src={booking.poster} alt="" className="ticket-poster"/>
+            <img src={booking.movie.poster} alt="" className="ticket-poster"/>
 
             <div className="booking-info">
 
@@ -94,14 +101,14 @@ const RetrieveTicket = () => {
 
                 <div>
 
-                  <h2>{booking.movie}</h2>
+                  <h2>{booking.movie.title}</h2>
 
-                  <small>{booking.genre}</small>
+                  <small>{booking.movie.genre}</small>
 
                 </div>
 
-                <span className="ticket-status">
-                  {booking.status}
+                <span className={`ticket-status ${booking.bookingStatus.toLowerCase()}`}>
+                  {booking.bookingStatus}
                 </span>
 
               </div>
@@ -110,42 +117,30 @@ const RetrieveTicket = () => {
 
                 <p>
                   <Calendar size={16} />
-                  {booking.date} · {booking.time}
+                  {booking.date} · {booking.timeSlot}
                 </p>
 
                 <p>
                   <MapPin size={16} />
-                  {booking.hall}
+                  Students' Center
                 </p>
 
-                <strong>
-                  {booking.bookingId} · Seats : {booking.seat}
-                </strong>
+                <div className="ticket-buttons">
+                  <strong>
+                    {booking.bookingId} · Seats : {booking.selectedSeats.map((seat,index)=>( <span key={index}> {seat} </span>))}
+                  </strong>
 
+                  <button>
+                    <Eye size={17} />
+                    View
+                  </button>
               </div>
 
-              <div className="ticket-buttons">
-
-                <button>
-                  <Download size={17} />
-                  PDF
-                </button>
-
-                <button>
-                  <Download size={17} />
-                  Image
-                </button>
-
-                <button>
-                  <Eye size={17} />
-                  View
-                </button>
-
               </div>
-
             </div>
 
           </div>
+          ))}
         </>
       )}
     </section>

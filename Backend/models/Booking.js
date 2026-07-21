@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
 
+    bookingId:{
+        type:String,
+        unique:true
+    },
+
     movie:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Movie",
@@ -33,9 +38,10 @@ const bookingSchema = new mongoose.Schema({
         required: true
     },
 
-    selectedSeats: [{
-        type: String
-    }],
+    selectedSeats: {
+        type: [String],
+        required: true
+    },
 
     totalAmount: {
         type: Number,

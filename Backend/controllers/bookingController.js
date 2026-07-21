@@ -9,13 +9,14 @@ exports.createBooking = async (req, res) => {
 
         const booking = new Booking({
 
+            bookingId: "FFF" + Date.now().toString().slice(-6),
             movie: req.body.movie,
             name: req.body.name,
             studentYear: req.body.studentYear,
             mobileNumber: req.body.mobileNumber,
             date: req.body.date,
             timeSlot: req.body.timeSlot,
-            selectedSeats: req.body.selectedSeats,
+            selectedSeats: selectedSeats,
             totalAmount: req.body.totalAmount,
             paymentType: req.body.paymentType,
             paymentSlip: req.file ? req.file.filename : null
@@ -56,6 +57,40 @@ exports.createBooking = async (req, res) => {
         res.status(201).json({
             success: true,
             booking
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
+};
+
+
+exports.getBookingByMobile = async (req, res) => {
+
+    try {
+
+        const { mobile } = req.params;
+
+        const bookings = await Booking.find({
+            mobileNumber: mobile
+        }).populate("movie");
+
+        if (bookings.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No bookings found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            bookings
         });
 
     } catch (error) {
