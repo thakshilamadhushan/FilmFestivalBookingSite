@@ -10,7 +10,7 @@ import BookedTicket from "./components/Ticket/bookedTicket";
 import RetrieveTicket from "./components/RetrieveTicket/retrieveTicket";
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminDashboard from "./components/Admin/AdminDashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/AdminProtectedRoute";
 
 import "./App.css";
 
@@ -31,10 +31,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/booking/:id" element={<BookingPage />} />
-        <Route path="/bookedticket" element={<BookedTicket/>}/>
-        <Route path="/retrieveticket" element={<RetrieveTicket/>}/>
-        <Route path="/admin" element={<AdminLogin/>}/>
-        <Route path="/admin/dashboard" element={ <ProtectedRoute> <AdminDashboard /> </ProtectedRoute> } />
+        <Route path="/bookedticket" element={<BookedTicket />} />
+        <Route path="/retrieveticket" element={<RetrieveTicket />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>

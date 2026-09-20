@@ -51,6 +51,7 @@ export default function AdminDashboard() {
   };
 
   const logout = () => {
+    localStorage.removeItem("adminToken");
     localStorage.removeItem("adminAuth");
     navigate("/admin");
   };
@@ -72,8 +73,8 @@ export default function AdminDashboard() {
       </header>
 
       <section className="admin-stats">
-        <Card title="Total Bookings" value={12} />
-        <Card title="Pending" value={5} />
+        <Card title="Total Bookings" value={12} type="total"/>
+        <Card title="Pending" value={5} type="pending"/>
         <Card title="Confirmed" value={5} />
         <Card title="Rejected" value={2} />
         <Card title="Seats Booked" value={23} />
@@ -106,6 +107,43 @@ export default function AdminDashboard() {
 
                       <button
                         className="reject"
+                        onClick={() => updateStatus(item.id, "Rejected")}
+                      >
+                        <XCircle />
+                      </button>
+                    </>
+                  )}
+
+                  {item.status === "Confirmed" && (
+
+                    <>
+                      <button
+                        className="approve" disabled
+                        onClick={() => updateStatus(item.id, "Confirmed")}
+                      >
+                        <CheckCircle />
+                      </button>
+
+                      <button
+                        className="reject"
+                        onClick={() => updateStatus(item.id, "Rejected")}
+                      >
+                        <XCircle />
+                      </button>
+                    </>
+                  )}
+
+                  {item.status === "Rejected" && (
+                    <>
+                      <button
+                        className="approve"
+                        onClick={() => updateStatus(item.id, "Confirmed")}
+                      >
+                        <CheckCircle />
+                      </button>
+
+                      <button
+                        className="reject" disabled
                         onClick={() => updateStatus(item.id, "Rejected")}
                       >
                         <XCircle />
