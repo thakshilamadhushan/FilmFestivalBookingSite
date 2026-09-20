@@ -9,6 +9,7 @@ import BookingSummary from "./bookingSummary";
 import BookingPendingPopup from "./BookingPendingPopup";
 
 export default function Booking() {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [occupiedSeats, setOccupiedSeats] = useState([]);
@@ -25,6 +26,11 @@ export default function Booking() {
     agentCode: "",
   });
   const [showPopup, setShowPopup] = useState(false);
+  const [popup, setPopup] = useState({
+    show: false,
+    type: "",
+    message: "",
+  });
 
   const toggleSeat = (seat) => {
     if (occupiedSeats.includes(seat)) return;
@@ -44,8 +50,8 @@ export default function Booking() {
     const fetchData = async () => {
       try {
         const [movieRes, seatsRes] = await Promise.all([
-          fetch(`http://localhost:5000/api/movies/${id}`),
-          fetch(`http://localhost:5000/api/shows/movie/${id}`),
+          fetch(`${API_URL}/api/movies/${id}`),
+          fetch(`${API_URL}/api/shows/movie/${id}`),
         ]);
 
         const movieData = await movieRes.json();
@@ -118,26 +124,39 @@ export default function Booking() {
       bookingData.append("paymentSlip", formData.paymentSlip);
     }
 
+    if (formData.agentCode) {
+      bookingData.append("agentCode", formData.agentCode);
+    }
+
     try {
       setBookingLoading(true);
 
-      const response = await fetch("http://localhost:5000/api/bookings", {
+      const response = await fetch(`${API_URL}/api/bookings`, {
         method: "POST",
         body: bookingData,
       });
 
       const data = await response.json();
 
-      console.log(data);
-
-      if (data.success) {
+      if (response.ok && data.success) {
+        // Successful booking
         setShowPopup(true);
       } else {
-        alert(data.message || "Booking failed.");
+        // Backend error
+        setPopup({
+          show: true,
+          type: "error",
+          message: data.message || "Booking failed.",
+        });
       }
     } catch (error) {
-      console.log(error);
-      alert("Something went wrong.");
+      console.error("Booking error:", error);
+
+      setPopup({
+        show: true,
+        type: "error",
+        message: "Unable to connect to the server.",
+      });
     } finally {
       setBookingLoading(false);
     }
@@ -183,6 +202,44 @@ export default function Booking() {
           navigate("/");
         }}
       />
+
+      {popup.show && (
+        <div className="popup-overlay">
+          <div className={`popup-box ${popup.type}`}>
+            <button
+              className="popup-close"
+              onClick={() =>
+                setPopup({
+                  show: false,
+                  type: "",
+                  message: "",
+                })
+              }
+            >
+              ×
+            </button>
+
+            <div className="popup-icon">!</div>
+
+            <h3>Booking Error</h3>
+
+            <p>{popup.message}</p>
+
+            <button
+              className="popup-ok"
+              onClick={() =>
+                setPopup({
+                  show: false,
+                  type: "",
+                  message: "",
+                })
+              }
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

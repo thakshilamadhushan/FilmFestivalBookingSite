@@ -21,8 +21,8 @@ export default function BookingSummary({
     formData.time !== "" &&
     formData.payment !== "" &&
     seats.length > 0 &&
-    (formData.payment == "Bank Payment" && formData.paymentSlip) ||
-    (formData.payment == "Meet Agent" && formData.agentCode);
+    ((formData.payment == "Bank Payment" && formData.paymentSlip) ||
+    (formData.payment == "Meet Agent" && formData.agentCode));
 
   return (
     <div className="summary-card card">
