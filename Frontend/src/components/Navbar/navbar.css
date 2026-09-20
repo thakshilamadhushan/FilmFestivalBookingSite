@@ -63,17 +63,22 @@
 
 }
 
-.navLinks a{
+.navLinks button, .navLinks .retrieveTicketLink{
+  background: none;
+  border: none;
+  outline: none;
 
-    text-decoration:none;
-    color:#ccc;
-    font-weight:500;
-    transition:.3s;
+  padding: 0;
+  margin: 0;
 
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.navLinks a:hover{
-
+.navLinks button:hover, .navLinks .retrieveTicketLink:hover{
     color:#ffbf36;
 
 }
