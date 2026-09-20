@@ -13,6 +13,7 @@ export default function Booking() {
   const [movie, setMovie] = useState(null);
   const [occupiedSeats, setOccupiedSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [bookingLoading, setBookingLoading] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -38,13 +39,13 @@ export default function Booking() {
     setSelectedSeats([...selectedSeats, seat]);
   };
 
-  // get movie details 
-    useEffect(() => {
+  // get movie details
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const [movieRes, seatsRes] = await Promise.all([
           fetch(`http://localhost:5000/api/movies/${id}`),
-          fetch(`http://localhost:5000/api/shows/movie/${id}`)
+          fetch(`http://localhost:5000/api/shows/movie/${id}`),
         ]);
 
         const movieData = await movieRes.json();
@@ -61,50 +62,48 @@ export default function Booking() {
   }, [id]);
 
   if (!movie) {
-      return <h2>Loading...</h2>;
+    return <h2>Loading...</h2>;
   }
 
-
   const handleBooking = async () => {
+    // Validation
+    if (!formData.name) {
+      alert("Please enter your name.");
+      return;
+    }
 
-      // Validation
-      if (!formData.name) {
-        alert("Please enter your name.");
-        return;
-      }
+    if (!formData.year) {
+      alert("Please select your year.");
+      return;
+    }
 
-      if (!formData.year) {
-        alert("Please select your year.");
-        return;
-      }
+    if (!formData.phone) {
+      alert("Please enter your mobile number.");
+      return;
+    }
 
-      if (!formData.phone) {
-        alert("Please enter your mobile number.");
-        return;
-      }
+    if (!formData.time) {
+      alert("Please select a time slot.");
+      return;
+    }
 
-      if (!formData.time) {
-        alert("Please select a time slot.");
-        return;
-      }
+    if (!formData.payment) {
+      alert("Please select a payment method.");
+      return;
+    }
 
-      if (!formData.payment) {
-        alert("Please select a payment method.");
-        return;
-      }
+    if (formData.payment === "Bank Transfer" && !formData.paymentSlip) {
+      alert("Please upload your payment slip.");
+      return;
+    }
 
-      if (formData.payment === "Bank Transfer" && !formData.paymentSlip) {
-        alert("Please upload your payment slip.");
-        return;
-      }
-
-      if (selectedSeats.length === 0) {
-        alert("Please select at least one seat.");
-        return;
-      }
+    if (selectedSeats.length === 0) {
+      alert("Please select at least one seat.");
+      return;
+    }
 
     const bookingData = new FormData();
-    
+
     bookingData.append("movie", id);
     bookingData.append("name", formData.name);
     bookingData.append("studentYear", formData.year);
@@ -115,48 +114,45 @@ export default function Booking() {
     bookingData.append("paymentType", formData.payment);
     bookingData.append("totalAmount", 70 * selectedSeats.length);
 
-    if (formData.paymentSlip) {bookingData.append("paymentSlip", formData.paymentSlip);}
+    if (formData.paymentSlip) {
+      bookingData.append("paymentSlip", formData.paymentSlip);
+    }
 
     try {
+      setBookingLoading(true);
 
-      const response = await fetch(
-        "http://localhost:5000/api/bookings",
-        {
-          method: "POST",
-          body: bookingData
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/bookings", {
+        method: "POST",
+        body: bookingData,
+      });
 
       const data = await response.json();
 
       console.log(data);
 
-      if(data.success){
+      if (data.success) {
         setShowPopup(true);
       } else {
         alert(data.message || "Booking failed.");
       }
-
-    } catch(error){
+    } catch (error) {
       console.log(error);
       alert("Something went wrong.");
+    } finally {
+      setBookingLoading(false);
     }
-
   };
 
   return (
     <section className="booking-page">
-
-        <div className="backtofilms">
-          {"‹ "}
-          <span onClick={() => navigate("/")}>Back to Films</span>
-        </div>
+      <div className="backtofilms">
+        {"‹ "}
+        <span onClick={() => navigate("/")}>Back to Films</span>
+      </div>
 
       <div className="booking-container">
-
         <div className="booking-left">
-
-          <MovieCard movie={movie}/>
+          <MovieCard movie={movie} />
 
           <BookingForm
             formData={formData}
@@ -169,28 +165,24 @@ export default function Booking() {
             toggleSeat={toggleSeat}
             occupiedSeats={occupiedSeats}
           />
-
         </div>
 
         <div className="booking-right">
-
           <BookingSummary
             formData={formData}
             seats={selectedSeats}
             onBooking={handleBooking}
+            loading={bookingLoading}
           />
-
         </div>
-
       </div>
       <BookingPendingPopup
-          isOpen={showPopup}
-          onClose={() => {
-              setShowPopup(false);
-              navigate("/");
-          }}
+        isOpen={showPopup}
+        onClose={() => {
+          setShowPopup(false);
+          navigate("/");
+        }}
       />
-
     </section>
   );
 }

@@ -1,10 +1,19 @@
 import "./bookingSummary.css";
-import {FaUser,FaPhoneAlt,FaCalendarAlt,FaClock,FaMoneyBill} from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import {
+  FaUser,
+  FaPhoneAlt,
+  FaCalendarAlt,
+  FaClock,
+  FaMoneyBill,
+} from "react-icons/fa";
+import { LoaderCircle } from "lucide-react";
 
-export default function BookingSummary({ formData, seats, onBooking }) {
-
-  const navigate = useNavigate();
+export default function BookingSummary({
+  formData,
+  seats,
+  onBooking,
+  loading,
+}) {
   const isComplete =
     formData.name.trim() !== "" &&
     formData.year !== "" &&
@@ -12,15 +21,14 @@ export default function BookingSummary({ formData, seats, onBooking }) {
     formData.time !== "" &&
     formData.payment !== "" &&
     seats.length > 0 &&
-    (formData.payment !== "Bank Transfer" && formData.paymentSlip);
+    (formData.payment == "Bank Payment" && formData.paymentSlip) ||
+    (formData.payment == "Meet Agent" && formData.agentCode);
 
   return (
     <div className="summary-card card">
-
       <h2>Booking Summary</h2>
 
       <div className="summary-info">
-
         <div className="summary-item">
           <FaUser />
           <div>
@@ -60,7 +68,6 @@ export default function BookingSummary({ formData, seats, onBooking }) {
             <p>{formData.time || "--"}</p>
           </div>
         </div>
-
       </div>
 
       <div className="divider"></div>
@@ -68,9 +75,7 @@ export default function BookingSummary({ formData, seats, onBooking }) {
       <h3>Selected Seats</h3>
 
       {seats.length === 0 ? (
-        <p className="empty-seat">
-          No seats selected
-        </p>
+        <p className="empty-seat">No seats selected</p>
       ) : (
         <div className="seat-list">
           {seats.map((seat) => (
@@ -88,18 +93,23 @@ export default function BookingSummary({ formData, seats, onBooking }) {
 
       <div className="price-row">
         <span>Booking Fee</span>
-        <strong>{70*seats.length}</strong>
+        <strong>{70 * seats.length}</strong>
       </div>
 
       <button
         className="confirm-btn"
-        disabled={!isComplete}
+        disabled={!isComplete || loading}
         onClick={onBooking}
-        
       >
-        Confirm Booking
+        {loading ? (
+          <>
+            <LoaderCircle className="loading-spinner" size={18} />
+            Booking...
+          </>
+        ) : (
+          "Confirm Booking"
+        )}
       </button>
-
     </div>
   );
 }

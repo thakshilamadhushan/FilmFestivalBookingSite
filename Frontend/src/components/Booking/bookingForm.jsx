@@ -2,18 +2,27 @@ import "./bookingForm.css";
 
 export default function BookingForm({ formData, setFormData, times = [] }) {
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+
+      // Clear payment slip when payment method is changed
+      ...(name === "payment" && value !== "Bank Payment"
+        ? { paymentSlip: null }
+        : {}),
+    }));
   };
 
   // Handle file upload
   const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      paymentSlip: e.target.files[0],
-    });
+    const file = e.target.files?.[0] || null;
+
+    setFormData((prev) => ({
+      ...prev,
+      paymentSlip: file,
+    }));
   };
 
   return (
