@@ -12,7 +12,7 @@ export default function BookingSummary({ formData, seats, onBooking }) {
     formData.time !== "" &&
     formData.payment !== "" &&
     seats.length > 0 &&
-    (formData.payment !== "Bank Transfer" || formData.paymentSlip);
+    (formData.payment !== "Bank Transfer" && formData.paymentSlip);
 
   return (
     <div className="summary-card card">

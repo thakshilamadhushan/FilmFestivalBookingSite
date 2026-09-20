@@ -161,6 +161,7 @@ export default function Booking() {
           <BookingForm
             formData={formData}
             setFormData={setFormData}
+            times={movie.times}
           />
 
           <SeatMap

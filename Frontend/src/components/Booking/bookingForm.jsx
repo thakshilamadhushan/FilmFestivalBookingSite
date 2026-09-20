@@ -1,6 +1,6 @@
 import "./bookingForm.css";
 
-export default function BookingForm({ formData, setFormData }) {
+export default function BookingForm({ formData, setFormData, times = [] }) {
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -18,11 +18,9 @@ export default function BookingForm({ formData, setFormData }) {
 
   return (
     <div className="booking-form card">
-
       <h2>Booking Details</h2>
 
       <div className="form-grid">
-
         {/* Full Name */}
         <div className="input-group full">
           <label>STUDENT FULL NAME</label>
@@ -40,11 +38,7 @@ export default function BookingForm({ formData, setFormData }) {
         <div className="input-group">
           <label>STUDENT YEAR</label>
 
-          <select
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-          >
+          <select name="year" value={formData.year} onChange={handleChange}>
             <option value="">Select Year</option>
             <option>1st Year</option>
             <option>2nd Year</option>
@@ -70,17 +64,14 @@ export default function BookingForm({ formData, setFormData }) {
         <div className="input-group">
           <label>TIME SLOT</label>
 
-          <select
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-          >
+          <select name="time" value={formData.time} onChange={handleChange}>
             <option value="">Select Time</option>
-            <option>09:00 AM</option>
-            <option>11:30 AM</option>
-            <option>02:00 PM</option>
-            <option>04:30 PM</option>
-            <option>07:00 PM</option>
+
+            {times.map((time, index) => (
+              <option key={index} value={time}>
+                {time}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -98,7 +89,7 @@ export default function BookingForm({ formData, setFormData }) {
             <option> Meet Agent</option>
           </select>
         </div>
-        
+
         {/* Show if Bank Payment is selected */}
         {formData.payment === "Bank Payment" && (
           <div className="input-group full">
@@ -145,9 +136,7 @@ export default function BookingForm({ formData, setFormData }) {
             />
           </div>
         )}
-
       </div>
-
     </div>
   );
 }
