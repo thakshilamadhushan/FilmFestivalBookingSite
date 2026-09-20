@@ -1,4 +1,6 @@
+import React, { useEffect, useState } from "react";
 import {
+  Download,
   RefreshCcw,
   LogOut,
   CheckCircle,
@@ -6,54 +8,127 @@ import {
   Clock,
   Users,
 } from "lucide-react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
-import { useState } from "react";
 
 export default function AdminDashboard() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const token = localStorage.getItem("adminToken");
   const navigate = useNavigate();
-  const [bookings, setBookings] = useState([
-    {
-      id: 1,
-      name: "Siddharth T",
-      movie: "Crimson Hour",
-      status: "Confirmed",
-      seats: 2,
-    },
+  const [bookings, setBookings] = useState([]);
+  const [stats, setStats] = useState({
+    totalBookings: 0,
+    pending: 0,
+    confirmed: 0,
+    rejected: 0,
+    seatsBooked: 0,
+  });
 
-    {
-      id: 2,
-      name: "Kavitha Rao",
-      movie: "Veil Of Silence",
-      status: "Pending",
-      seats: 3,
-    },
-
-    {
-      id: 3,
-      name: "Varun Nair",
-      movie: "One Last Dawn",
-      status: "Confirmed",
-      seats: 1,
-    },
-
-    {
-      id: 4,
-      name: "Priya Patel",
-      movie: "The Last Frame",
-      status: "Pending",
-      seats: 2,
-    },
-  ]);
-
-  const updateStatus = (id, status) => {
-    setBookings(bookings.map((b) => (b.id === id ? { ...b, status } : b)));
-  };
+  const [loading, setLoading] = useState(true);
 
   const logout = () => {
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminAuth");
     navigate("/admin");
+  };
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const fetchDashboard = async () => {
+    try {
+      setLoading(true);
+
+      const [bookingsResponse, statsResponse] = await Promise.all([
+        axios.get(`${API_URL}/api/admin/bookings`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+        axios.get(`${API_URL}/api/admin/stats`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+      ]);
+
+      setBookings(bookingsResponse.data.bookings);
+      setStats(statsResponse.data.stats);
+    } catch (error) {
+      console.error("Dashboard error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateStatus = async (id, status) => {
+    try {
+      const response = await axios.patch(
+        `${API_URL}/api/admin/bookings/${id}/status`,
+        {
+          bookingStatus: status,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      console.log("Updated booking:", response.data);
+
+      // Update UI immediately
+      setBookings((prev) =>
+        prev.map((booking) =>
+          booking._id === id
+            ? {
+                ...booking,
+                bookingStatus: status,
+              }
+            : booking,
+        ),
+      );
+
+      // Refresh statistics
+      const statsResponse = await axios.get(`${API_URL}/api/admin/stats`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setStats(statsResponse.data.stats);
+    } catch (error) {
+      console.error("Status update error:", error.response?.data || error);
+    }
+  };
+
+  const downloadPaymentSlip = async (url, bookingId) => {
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Failed to download payment slip");
+      }
+
+      const blob = await response.blob();
+
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = `${bookingId}-payment-slip`;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Payment slip download error:", error);
+      alert("Unable to download payment slip.");
+    }
   };
 
   return (
@@ -73,11 +148,11 @@ export default function AdminDashboard() {
       </header>
 
       <section className="admin-stats">
-        <Card title="Total Bookings" value={12} type="total"/>
-        <Card title="Pending" value={5} type="pending"/>
-        <Card title="Confirmed" value={5} />
-        <Card title="Rejected" value={2} />
-        <Card title="Seats Booked" value={23} />
+        <Card title="Total Bookings" value={stats.totalBookings} type="total" />
+        <Card title="Pending" value={stats.pending} type="pending" />
+        <Card title="Confirmed" value={stats.confirmed} />
+        <Card title="Rejected" value={stats.rejected} />
+        <Card title="Seats Booked" value={stats.seatsBooked} />
       </section>
 
       <div className="admincontent">
@@ -85,66 +160,91 @@ export default function AdminDashboard() {
           <h2>Recent Bookings</h2>
 
           {bookings.map((item) => (
-            <div className="adminbooking" key={item.id}>
+            <div className="adminbooking" key={item._id}>
               <div>
-                <h3>{item.name}</h3>
-                <p>{item.movie} · Jul 14, 2025</p>
-                <p className="bookingid">FFF25-SEED12</p>
+                <div className="nameandyearandnumber">
+                  <h3>{item.name}</h3> {" • "}
+                  <p>{item.studentYear}</p> {" • "}
+                  <p>{item.mobileNumber}</p>
+                </div>
+                <p>
+                  {item.movie.title} · {item.date} {"at"} {item.timeSlot}
+                </p>
+                <p>Seats: {item.selectedSeats.join(", ")}</p>
+                <p>
+                  Payment Type: {item.paymentType} {" | Rs."} {item.totalAmount}
+                </p>
+                <p className="bookingid">{item.bookingId}</p>
+                {item.paymentType === "Bank Payment" && item.paymentSlip && (
+                  <button
+                    className="downloadPaymentSlip-btn"
+                    onClick={() =>
+                      downloadPaymentSlip(item.paymentSlip, item.bookingId)
+                    }
+                  >
+                    <Download size={16} />
+                    Download Slip
+                  </button>
+                )}
               </div>
 
               <div className="statusandbutton">
-                <span className={`status ${item.status}`}> {item.status} </span>
+                <span className={`status ${item.bookingStatus}`}>
+                  {" "}
+                  {item.bookingStatus}{" "}
+                </span>
 
                 <div className="buttons">
-                  {item.status === "Pending" && (
+                  {item.bookingStatus === "Pending" && (
                     <>
                       <button
                         className="approve"
-                        onClick={() => updateStatus(item.id, "Confirmed")}
+                        onClick={() => updateStatus(item._id, "Confirmed")}
                       >
                         <CheckCircle />
                       </button>
 
                       <button
                         className="reject"
-                        onClick={() => updateStatus(item.id, "Rejected")}
+                        onClick={() => updateStatus(item._id, "Rejected")}
                       >
                         <XCircle />
                       </button>
                     </>
                   )}
 
-                  {item.status === "Confirmed" && (
-
+                  {item.bookingStatus === "Confirmed" && (
                     <>
                       <button
-                        className="approve" disabled
-                        onClick={() => updateStatus(item.id, "Confirmed")}
+                        className="approve"
+                        disabled
+                        onClick={() => updateStatus(item._id, "Confirmed")}
                       >
                         <CheckCircle />
                       </button>
 
                       <button
                         className="reject"
-                        onClick={() => updateStatus(item.id, "Rejected")}
+                        onClick={() => updateStatus(item._id, "Rejected")}
                       >
                         <XCircle />
                       </button>
                     </>
                   )}
 
-                  {item.status === "Rejected" && (
+                  {item.bookingStatus === "Rejected" && (
                     <>
                       <button
                         className="approve"
-                        onClick={() => updateStatus(item.id, "Confirmed")}
+                        onClick={() => updateStatus(item._id, "Confirmed")}
                       >
                         <CheckCircle />
                       </button>
 
                       <button
-                        className="reject" disabled
-                        onClick={() => updateStatus(item.id, "Rejected")}
+                        className="reject"
+                        disabled
+                        onClick={() => updateStatus(item._id, "Rejected")}
                       >
                         <XCircle />
                       </button>
@@ -160,17 +260,23 @@ export default function AdminDashboard() {
           <div className="panel">
             <h2>Status Breakdown</h2>
 
-            <p>🟢 Confirmed 5 / 12</p>
+            <p>
+              🟢 Confirmed {stats.confirmed} / {stats.totalBookings}
+            </p>
 
-            <p>🟡 Pending 5 / 12</p>
+            <p>
+              🟡 Pending {stats.pending} / {stats.totalBookings}
+            </p>
 
-            <p>🔴 Rejected 2 / 12</p>
+            <p>
+              🔴 Rejected {stats.rejected} / {stats.totalBookings}
+            </p>
           </div>
 
           <div className="panel action">
             <h2>Action Required</h2>
 
-            <p>5 bookings awaiting review.</p>
+            <p>{stats.pending} bookings awaiting review.</p>
           </div>
         </div>
       </div>

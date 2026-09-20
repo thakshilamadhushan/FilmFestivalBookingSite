@@ -101,6 +101,11 @@ header p {
   padding: 15px 0;
 }
 
+.adminbooking .nameandyearandnumber{
+  display: flex;
+  gap: 10px;
+}
+
 .adminbooking .nameandstatus {
   display: flex;
   justify-content: space-between;
@@ -180,6 +185,16 @@ header p {
 
 .action {
   border-color: #705900;
+}
+
+.downloadPaymentSlip-btn{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: none;
+  color: #ffd43b;
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {

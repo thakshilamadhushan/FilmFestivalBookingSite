@@ -4,6 +4,7 @@ const Booking = require("../models/Booking");
 exports.getBookings = async (req, res) => {
   try {
     const bookings = await Booking.find()
+      .populate("movie", "title")
       .sort({ createdAt: -1 })
       .select("-__v");
 
