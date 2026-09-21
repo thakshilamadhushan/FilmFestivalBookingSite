@@ -4,11 +4,12 @@ import MovieCard from "./movieCard";
 
 function Festival(){
 
+    const API_URL = import.meta.env.VITE_API_URL;
     const [movies,setMovies]=useState([]);
 
     useEffect(()=>{
 
-        fetch("http://localhost:5000/api/movies")
+        fetch(`${API_URL}/api/movies`)
         .then(res=>res.json())
         .then(data=>setMovies(data));
 
@@ -32,7 +33,7 @@ function Festival(){
                 movies.map(movie=>(
 
                     <MovieCard
-                    key={movie.id}
+                    key={movie._id}
                     movie={movie}
                     />
 
