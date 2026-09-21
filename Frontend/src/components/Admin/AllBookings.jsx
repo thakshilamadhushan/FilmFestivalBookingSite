@@ -12,50 +12,32 @@ export default function AllBookings({
 }) {
   return (
     <div className="all-bookings">
-
       <div className="all-bookings-header">
-
         <div>
-          <h2>
-            All Bookings
-          </h2>
+          <h2>All Bookings</h2>
 
-          <p>
-            Manage all festival bookings
-          </p>
+          <p>Manage all festival bookings</p>
         </div>
 
-        <span className="total-bookings">
-          {bookings.length}
-        </span>
-
+        <span className="total-bookings">{bookings.length}</span>
       </div>
 
       <div className="all-bookings-list">
-
         {loading ? (
-          <div className="empty-message">
-            Loading bookings...
-          </div>
+          <div className="empty-message">Loading bookings...</div>
         ) : bookings.length === 0 ? (
-          <div className="empty-message">
-            No bookings found.
-          </div>
+          <div className="empty-message">No bookings found.</div>
         ) : (
           bookings.map((booking) => (
             <BookingCard
               key={booking._id}
               booking={booking}
               updateStatus={updateStatus}
-              downloadPaymentSlip={
-                downloadPaymentSlip
-              }
+              downloadPaymentSlip={downloadPaymentSlip}
             />
           ))
         )}
-
       </div>
-
     </div>
   );
 }

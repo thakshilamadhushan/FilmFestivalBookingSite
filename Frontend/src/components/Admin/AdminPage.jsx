@@ -3,12 +3,14 @@ import axios from "axios";
 import { LogOut } from "lucide-react";
 import Sidebar from "./Sidebar";
 import Overview from "./AdminDashboard";
+import { useNavigate } from "react-router-dom";
 import TicketValidation from "./TicketValidation";
 import "./AdminPage.css";
 
 const AdminDashboard = () => {
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("adminToken");
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
   const [bookings, setBookings] = useState([]);
   const [stats, setStats] = useState({
@@ -83,7 +85,7 @@ const AdminDashboard = () => {
           <div className="dashboard-content">
             {activeTab === "overview" && (
               <div className="placeholder-page">
-                <Overview bookings={bookings} stats={stats} />
+                <Overview bookings={bookings} stats={stats} setBookings={setBookings} setStats={setStats} />
               </div>
             )}
 

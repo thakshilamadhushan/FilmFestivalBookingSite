@@ -1,5 +1,7 @@
 .admin-dashboard {
   min-height: 100vh;
+  margin: 4% 5%;
+  padding: 30px 0;
   background: var(--bg2);
   color: var(--text-h);
 }
@@ -41,7 +43,6 @@
 
 .placeholder-page {
   min-height: 300px;
-  padding: 30px;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--bg);

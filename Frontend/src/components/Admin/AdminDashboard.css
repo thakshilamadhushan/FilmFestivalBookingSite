@@ -4,9 +4,8 @@ body {
   font-family: Inter, Arial;
 }
 
-.admin-dashboard {
-  margin: 5% 8%;
-  padding: 35px;
+.admin-overview {
+  padding: 0px 30px;
   color: white;
 }
 

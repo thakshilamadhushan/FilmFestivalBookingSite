@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import {
-  Download,
-  CheckCircle,
-  XCircle,
-} from "lucide-react";
+import React from "react";
+import { Download, CheckCircle, XCircle } from "lucide-react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
-export default function AdminDashboard({bookings = [], stats = []}) {
+export default function AdminDashboard({
+  bookings = [],
+  stats = [],
+  setBookings,
+  setStats,
+}) {
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("adminToken");
-  const navigate = useNavigate();
-
-
   const updateStatus = async (id, status) => {
     try {
       const response = await axios.patch(
@@ -83,9 +80,7 @@ export default function AdminDashboard({bookings = [], stats = []}) {
   };
 
   return (
-    <div className="admin-dashboard">
-      
-
+    <div className="admin-overview">
       <section className="admin-stats">
         <Card title="Total Bookings" value={stats.totalBookings} type="total" />
         <Card title="Pending" value={stats.pending} type="pending" />
@@ -212,11 +207,13 @@ export default function AdminDashboard({bookings = [], stats = []}) {
             </p>
           </div>
 
-          <div className="panel action">
-            <h2>Action Required</h2>
+          {stats.pending > 0 && (
+            <div className="panel action">
+              <h2>Action Required</h2>
 
-            <p>{stats.pending} bookings awaiting review.</p>
-          </div>
+              <p>{stats.pending} bookings awaiting review.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -227,7 +224,6 @@ function Card({ title, value }) {
   return (
     <div className="stat-card">
       <p>{title}</p>
-
       <h1>{value}</h1>
     </div>
   );
