@@ -9,7 +9,7 @@ import BookingPage from "./components/Booking/booking";
 import BookedTicket from "./components/Ticket/bookedTicket";
 import RetrieveTicket from "./components/RetrieveTicket/retrieveTicket";
 import AdminLogin from "./components/Admin/AdminLogin";
-import AdminDashboard from "./components/Admin/AdminDashboard";
+import AdminDashboard from "./components/Admin/AdminPage";
 import ProtectedRoute from "./components/AdminProtectedRoute";
 
 import "./App.css";

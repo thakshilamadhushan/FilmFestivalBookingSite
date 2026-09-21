@@ -1,0 +1,219 @@
+.booking-card {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding: 17px;
+
+  margin-bottom: 10px;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  transition: 0.2s ease;
+}
+
+.booking-card:hover {
+  border-color: #d1d5db;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.booking-details {
+  min-width: 0;
+}
+
+.booking-person {
+  display: flex;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-bottom: 7px;
+}
+
+.booking-person h3 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 15px;
+}
+
+.booking-person p,
+.booking-person span {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+.booking-details > p {
+  margin: 5px 0;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+.booking-id {
+  color: #dc2626 !important;
+
+  font-weight: 700;
+}
+
+/* =========================
+   PAYMENT SLIP
+========================= */
+
+.download-slip {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 7px;
+
+  padding: 7px 10px;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #374151;
+
+  cursor: pointer;
+
+  font-size: 11px;
+}
+
+.download-slip:hover {
+  background: #f3f4f6;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.booking-actions {
+  min-width: 115px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 12px;
+}
+
+.booking-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.booking-status.Pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.booking-status.Confirmed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.booking-status.Rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-buttons {
+  display: flex;
+
+  gap: 7px;
+}
+
+.status-buttons button {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 7px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.status-buttons .approve {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status-buttons .approve:hover:not(:disabled) {
+  background: #16a34a;
+  color: white;
+}
+
+.status-buttons .reject {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status-buttons .reject:hover:not(:disabled) {
+  background: #dc2626;
+  color: white;
+}
+
+.status-buttons button:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 650px) {
+  .booking-card {
+    flex-direction: column;
+  }
+
+  .booking-actions {
+    width: 100%;
+
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+  }
+}

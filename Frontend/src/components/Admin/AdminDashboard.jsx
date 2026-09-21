@@ -1,67 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
   Download,
-  RefreshCcw,
-  LogOut,
   CheckCircle,
   XCircle,
-  Clock,
-  Users,
 } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 
-export default function AdminDashboard() {
+export default function AdminDashboard({bookings = [], stats = []}) {
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("adminToken");
   const navigate = useNavigate();
-  const [bookings, setBookings] = useState([]);
-  const [stats, setStats] = useState({
-    totalBookings: 0,
-    pending: 0,
-    confirmed: 0,
-    rejected: 0,
-    seatsBooked: 0,
-  });
 
-  const [loading, setLoading] = useState(true);
-
-  const logout = () => {
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("adminAuth");
-    navigate("/admin");
-  };
-
-  useEffect(() => {
-    fetchDashboard();
-  }, []);
-
-  const fetchDashboard = async () => {
-    try {
-      setLoading(true);
-
-      const [bookingsResponse, statsResponse] = await Promise.all([
-        axios.get(`${API_URL}/api/admin/bookings`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-        axios.get(`${API_URL}/api/admin/stats`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-      ]);
-
-      setBookings(bookingsResponse.data.bookings);
-      setStats(statsResponse.data.stats);
-    } catch (error) {
-      console.error("Dashboard error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const updateStatus = async (id, status) => {
     try {
@@ -133,19 +84,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-dashboard">
-      <header>
-        <div>
-          <h1>🛡 Admin Dashboard</h1>
-          <p>Faculty Film Festival 2026 · Booking Management</p>
-        </div>
-
-        <div className="admin-actions">
-          <button onClick={logout} className="exit">
-            <LogOut size={16} />
-            Exit Admin
-          </button>
-        </div>
-      </header>
+      
 
       <section className="admin-stats">
         <Card title="Total Bookings" value={stats.totalBookings} type="total" />
