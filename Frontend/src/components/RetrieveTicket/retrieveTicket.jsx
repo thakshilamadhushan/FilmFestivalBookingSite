@@ -35,7 +35,9 @@ const RetrieveTicket = () => {
 
   return (
     <section className="retrieve-page">
+      <div className="retrieve-overlay"></div>
 
+      <div className="retrieve-content">
       <div className="retrieve-header">
 
         <div className="ticket-icon">
@@ -176,6 +178,8 @@ const RetrieveTicket = () => {
               </div>
           </div>
           )}
+
+      </div>
     </section>
   );
 };
