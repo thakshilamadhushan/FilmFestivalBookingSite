@@ -1,6 +1,5 @@
 import "./footer.css";
 import {
-  FaFacebookF,
   FaYoutube,
   FaTiktok,
   FaMapMarkerAlt,
@@ -8,6 +7,7 @@ import {
   FaPhoneAlt,
   FaFilm,
   FaFacebook,
+  FaWhatsapp,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -72,6 +72,7 @@ function Footer() {
             >
               <FaYoutube />
             </a>
+
           </div>
         </div>
 
@@ -111,9 +112,11 @@ function Footer() {
             <p>fihstmedia@gmail.com</p>
           </div>
 
-          <div className="contact-item">
-            <FaPhoneAlt className="contact-icon" />
-            <p>+94 77 451 3740</p>
+          <div className="contact-item whatsapp">
+            <FaWhatsapp className="contact-icon" />
+            <a href="https://wa.me/94774513740" target="_blank" rel="noopener noreferrer">
+              +94 77 451 3740
+            </a>
           </div>
         </div>
       </div>

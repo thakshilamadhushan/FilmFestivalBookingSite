@@ -125,6 +125,17 @@
   line-height: 1.5;
 }
 
+.contact-item.whatsapp a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.contact-item.whatsapp a:hover {
+  color: #f8bd2c;
+}
+
 .footer-bottom {
   margin-top: 30px;
   padding-top: 20px;

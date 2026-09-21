@@ -19,7 +19,7 @@ export default function BookingPendingPopup({ isOpen, onClose }) {
         <p className="popup-message">
           Your booking is currently <strong><br></br>Pending Confirmation</strong>.
           <br /><br />
-          Our team will verify your payment and send your e-ticket once the payment has been confirmed.
+          We'll verify your payment within 24 hours. Once confirmed, you can download your e-ticket using your registered mobile number.
         </p>
 
         <button className="popup-btn" onClick={onClose}>
