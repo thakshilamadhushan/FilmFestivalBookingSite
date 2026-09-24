@@ -3,6 +3,7 @@ import axios from "axios";
 import { LogOut } from "lucide-react";
 import Sidebar from "./Sidebar";
 import Overview from "./AdminDashboard";
+import AllBookings from "./AllBookings";
 import { useNavigate } from "react-router-dom";
 import TicketValidation from "./TicketValidation";
 import "./AdminPage.css";
@@ -91,7 +92,7 @@ const AdminDashboard = () => {
 
             {activeTab === "bookings" && (
               <div className="placeholder-page">
-                <h1>All Bookings</h1>
+                <AllBookings bookings={bookings} setBookings={setBookings} setStats={setStats} />
               </div>
             )}
 
