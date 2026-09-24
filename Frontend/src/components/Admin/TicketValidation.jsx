@@ -25,6 +25,7 @@ export default function ValidateTicket() {
   const [bookingId, setBookingId] = useState("");
   const [booking, setBooking] = useState(null);
 
+  const [alreadyValidated, setAlreadyValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -142,6 +143,7 @@ export default function ValidateTicket() {
       setError("");
       setSuccess("");
       setBooking(null);
+      setAlreadyValidated(false);
 
       let dataToSend;
 
@@ -197,6 +199,7 @@ export default function ValidateTicket() {
 
       if (response.status === 409) {
         setBooking(data.booking || null);
+        setAlreadyValidated(true);
         setError(data.message || "This ticket has already been validated.");
         setSuccess("");
         return;
@@ -210,6 +213,7 @@ export default function ValidateTicket() {
         throw new Error("Booking data was not returned by the server.");
       }
 
+      setAlreadyValidated(false);
       setBooking(data.booking);
       setSuccess(data.message || "Ticket verified successfully.");
     } catch (err) {
@@ -234,6 +238,7 @@ export default function ValidateTicket() {
     setBookingId("");
     setError("");
     setSuccess("");
+    setAlreadyValidated(false);
   };
 
   // --------------------------------------------------
@@ -345,7 +350,7 @@ export default function ValidateTicket() {
               </div>
             )}
 
-            {error && !loading && (
+            {error && !loading && !alreadyValidated && (
               <div className="invalid-ticket">
                 <XCircle size={60} />
 
@@ -362,12 +367,30 @@ export default function ValidateTicket() {
             {booking && !loading && (
               <div className="ticket-result">
                 {/* Valid */}
-                <div className="valid-ticket">
-                  <CheckCircle size={27} />
+                <div
+                  className={
+                    alreadyValidated
+                      ? "already-validated-ticket"
+                      : "valid-ticket"
+                  }
+                >
+                  {alreadyValidated ? (
+                    <XCircle size={27} />
+                  ) : (
+                    <CheckCircle size={27} />
+                  )}
 
                   <div>
-                    <strong>Ticket Valid</strong>
-                    <span>{success}</span>
+                    <strong>
+                      {alreadyValidated
+                        ? "Ticket Already Used"
+                        : "Ticket Valid"}
+                    </strong>
+                    <span>
+                      {alreadyValidated
+                        ? "This ticket has already been validated."
+                        : success}
+                    </span>
                   </div>
                 </div>
 
@@ -393,7 +416,7 @@ export default function ValidateTicket() {
 
                     <div>
                       <span>Mobile</span>
-                      <strong>{booking.mobileNumber}</strong>
+                      <strong>{booking.mobile}</strong>
                     </div>
                   </div>
 

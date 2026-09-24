@@ -235,12 +235,13 @@
   color: #003313;
 }
 
-.valid-ticket svg {
+.valid-ticket svg{
   flex-shrink: 0;
 }
 
 .valid-ticket strong,
-.valid-ticket span {
+.valid-ticket span,
+.already-validated-ticket span {
   display: block;
 }
 
@@ -251,6 +252,18 @@
 .valid-ticket span {
   margin-top: 3px;
   font-size: 13px;
+}
+
+/* Already used */
+.already-validated-ticket{
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  padding: 16px;
+  border-radius: 12px;
+  background: #ffaaaa;
+  color: #330000;
 }
 
 /* Booking ID */
