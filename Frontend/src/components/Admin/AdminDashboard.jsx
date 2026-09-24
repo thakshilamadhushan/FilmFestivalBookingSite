@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Download, CheckCircle, XCircle } from "lucide-react";
 import axios from "axios";
 import "./AdminDashboard.css";
@@ -11,6 +11,15 @@ export default function AdminDashboard({
 }) {
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("adminToken");
+  const [currentPage, setCurrentPage] = useState(1);
+  const bookingsPerPage = 5;
+  const totalPages = Math.ceil(bookings.length / bookingsPerPage);
+  const startIndex = (currentPage - 1) * bookingsPerPage;
+  const currentBookings = bookings.slice(
+    startIndex,
+    startIndex + bookingsPerPage,
+  );
+
   const updateStatus = async (id, status) => {
     try {
       const response = await axios.patch(
@@ -93,7 +102,7 @@ export default function AdminDashboard({
         <div className="adminbooking-box">
           <h2>Recent Bookings</h2>
 
-          {bookings.map((item) => (
+          {currentBookings.map((item) => (
             <div className="adminbooking" key={item._id}>
               <div>
                 <div className="nameandyearandnumber">
@@ -214,6 +223,38 @@ export default function AdminDashboard({
               <p>{stats.pending} bookings awaiting review.</p>
             </div>
           )}
+        </div>
+
+        <div className="pagination">
+          <button
+            className="pagination-btn"
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+
+          <div className="page-numbers">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                className={`page-number ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+
+          <button
+            className="pagination-btn"
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            disabled={currentPage === totalPages || totalPages === 0}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
