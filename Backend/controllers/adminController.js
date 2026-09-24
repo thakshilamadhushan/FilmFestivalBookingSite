@@ -41,7 +41,7 @@ exports.updateBookingStatus = async (req, res) => {
       {
         new: true,
         runValidators: true,
-      }
+      },
     );
 
     if (!booking) {
@@ -86,8 +86,15 @@ exports.getStats = async (req, res) => {
     const seatsResult = await Booking.aggregate([
       {
         $match: {
-          bookingStatus: {
-            $ne: "Rejected",
+          bookingStatus: "Confirmed",
+        },
+      },
+      {
+        $project: {
+          seatCount: {
+            $size: {
+              $ifNull: ["$selectedSeats", []],
+            },
           },
         },
       },
@@ -95,14 +102,13 @@ exports.getStats = async (req, res) => {
         $group: {
           _id: null,
           totalSeats: {
-            $sum: "$seats",
+            $sum: "$seatCount",
           },
         },
       },
     ]);
 
-    const seatsBooked =
-      seatsResult.length > 0 ? seatsResult[0].totalSeats : 0;
+    const seatsBooked = seatsResult.length > 0 ? seatsResult[0].totalSeats : 0;
 
     res.status(200).json({
       success: true,
