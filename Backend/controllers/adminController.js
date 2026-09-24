@@ -129,3 +129,126 @@ exports.getStats = async (req, res) => {
     });
   }
 };
+
+exports.validateTicket = async (req, res) => {
+  try {
+    const {
+      bookingId,
+      name,
+      mobileNumber,
+      movie,
+    } = req.body;
+
+    {/*console.log("Validation request:", {
+      bookingId,
+      name,
+      mobileNumber,
+      movie,
+    });*/}
+
+    if (!bookingId) {
+      return res.status(400).json({
+        message: "Booking ID is required.",
+      });
+    }
+
+    const booking = await Booking.findOne({
+      bookingId: bookingId.trim(),
+    }).populate("movie", "title");
+
+    if (!booking) {
+      return res.status(404).json({
+        message: "Booking not found.",
+      });
+    }
+
+    // Only confirmed bookings can be validated
+    if (booking.bookingStatus !== "Confirmed") {
+      return res.status(400).json({
+        message: `Ticket cannot be validated. Booking status is ${booking.bookingStatus}.`,
+      });
+    }
+
+    // QR validation
+    // Only perform these checks when QR data was supplied.
+    if (name || mobileNumber || movie) {
+      const nameMatches =
+        booking.name?.trim().toLowerCase() ===
+        String(name || "").trim().toLowerCase();
+
+      const mobileMatches =
+        booking.mobileNumber?.trim() ===
+        String(mobileNumber || "").trim();
+
+      const movieMatches =
+        booking.movie?.title?.trim().toLowerCase() ===
+        String(movie || "").trim().toLowerCase();
+
+      if (!nameMatches) {
+        return res.status(400).json({
+          message: "Name does not match the booking.",
+        });
+      }
+
+      if (!mobileMatches) {
+        return res.status(400).json({
+          message: "Mobile number does not match the booking.",
+        });
+      }
+
+      if (!movieMatches) {
+        return res.status(400).json({
+          message: "Movie does not match the booking.",
+        });
+      }
+    }
+
+    // Already validated
+    if (booking.ticketValidated) {
+      return res.status(409).json({
+        message: "This ticket has already been validated.",
+        booking: {
+          bookingId: booking.bookingId,
+          name: booking.name,
+          mobile: booking.mobileNumber,
+          movie: booking.movie?.title || "",
+          seats: booking.selectedSeats || [],
+          bookingStatus: booking.bookingStatus,
+          ticketValidated: true,
+          validatedAt: booking.validatedAt,
+        },
+      });
+    }
+
+    // Mark ticket as used
+    booking.ticketValidated = true;
+    booking.validatedAt = new Date();
+
+    await booking.save();
+
+    return res.status(200).json({
+      message: "Ticket verified successfully.",
+
+      booking: {
+        bookingId: booking.bookingId,
+        name: booking.name,
+        mobile: booking.mobileNumber,
+        movie: booking.movie?.title || "",
+
+        // IMPORTANT:
+        // Seats come from MongoDB, NOT QR
+        seats: booking.selectedSeats || [],
+
+        bookingStatus: booking.bookingStatus,
+        ticketValidated: booking.ticketValidated,
+        validatedAt: booking.validatedAt,
+      },
+    });
+  } catch (error) {
+    console.error("Validate ticket error:", error);
+
+    return res.status(500).json({
+      message: "Server error while validating ticket.",
+    });
+  }
+};

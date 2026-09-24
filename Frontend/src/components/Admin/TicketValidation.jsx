@@ -14,9 +14,9 @@ import {
 } from "lucide-react";
 import "./TicketValidation.css";
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 export default function ValidateTicket() {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const token = localStorage.getItem("adminToken");
   const scannerRef = useRef(null);
 
   const [scanner, setScanner] = useState(null);
@@ -54,9 +54,9 @@ export default function ValidateTicket() {
         async (decodedText) => {
           console.log("QR:", decodedText);
 
-          await handleQRCode(decodedText);
-
           await stopScanner(qrScanner);
+
+          await handleQRCode(decodedText);
         },
         () => {
           // Ignore QR scan errors while scanning
@@ -99,28 +99,36 @@ export default function ValidateTicket() {
 
   const handleQRCode = async (qrText) => {
     try {
+      // console.log("Raw QR text:", qrText);
+
       let qrData;
 
       try {
         qrData = JSON.parse(qrText);
-      } catch {
-        // QR may contain only booking ID
+      } catch (parseError) {
+        // QR contains only the booking ID
         qrData = {
           bookingId: qrText.trim(),
         };
       }
 
-      if (!qrData.bookingId) {
-        setError("Invalid ticket QR code.");
+      // console.log("Parsed QR data:", qrData);
+
+      if (!qrData?.bookingId) {
+        setError("Invalid QR code. Booking ID is missing.");
         return;
       }
 
+      // Show scanned booking ID in input
       setBookingId(qrData.bookingId);
 
-      await validateBooking(qrData.bookingId);
+      // IMPORTANT:
+      // Send QR data directly to validation
+      await validateBooking(qrData);
     } catch (err) {
-      console.error(err);
-      setError("Invalid QR code.");
+      // console.error("QR validation error:", err);
+
+      setError(err.message || "Unable to validate QR ticket.");
     }
   };
 
@@ -128,36 +136,87 @@ export default function ValidateTicket() {
   // Validate Booking
   // --------------------------------------------------
 
-  const validateBooking = async (id = bookingId) => {
-    const cleanId = id.trim();
-
-    if (!cleanId) {
-      setError("Please enter a booking ID.");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-    setSuccess("");
-    setBooking(null);
-
+  const validateBooking = async (qrData = null) => {
     try {
-      const response = await fetch(
-        `${API_URL}/api/bookings/validate/${encodeURIComponent(cleanId)}`,
-      );
+      setLoading(true);
+      setError("");
+      setSuccess("");
+      setBooking(null);
+
+      let dataToSend;
+
+      // ==========================================
+      // QR CODE VALIDATION
+      // ==========================================
+      if (qrData !== null) {
+        // console.log("Validating QR data:", qrData);
+
+        if (!qrData.bookingId) {
+          throw new Error("Invalid QR code. Booking ID is missing.");
+        }
+
+        dataToSend = {
+          bookingId: String(qrData.bookingId).trim(),
+          name: qrData.name || "",
+          mobileNumber: qrData.mobile || "",
+          movie: qrData.movie || "",
+        };
+      }
+
+      // ==========================================
+      // MANUAL BOOKING ID VALIDATION
+      // ==========================================
+      else {
+        const cleanId = bookingId.trim();
+
+        if (!cleanId) {
+          throw new Error("Please enter a booking ID.");
+        }
+
+        dataToSend = {
+          bookingId: cleanId,
+        };
+      }
+
+      // console.log("Sending validation request:", dataToSend);
+
+      const response = await fetch(`${API_URL}/api/admin/bookings/validate`, {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify(dataToSend),
+      });
 
       const data = await response.json();
 
+      // console.log("Validation response:", data);
+
+      if (response.status === 409) {
+        setBooking(data.booking || null);
+        setError(data.message || "This ticket has already been validated.");
+        setSuccess("");
+        return;
+      }
+
       if (!response.ok) {
-        throw new Error(data.message || "Booking not found");
+        throw new Error(data.message || "Booking validation failed.");
+      }
+
+      if (!data.booking) {
+        throw new Error("Booking data was not returned by the server.");
       }
 
       setBooking(data.booking);
-      setSuccess("Ticket verified successfully.");
+      setSuccess(data.message || "Ticket verified successfully.");
     } catch (err) {
-      console.error(err);
+      // console.error("Validation error:", err);
 
       setError(err.message || "Ticket validation failed.");
+
       setBooking(null);
     } finally {
       setLoading(false);
@@ -242,7 +301,7 @@ export default function ValidateTicket() {
               <div className="booking-input">
                 <input
                   type="text"
-                  placeholder="FFF197271"
+                  placeholder="FFF******"
                   value={bookingId}
                   onChange={(e) => setBookingId(e.target.value)}
                   onKeyDown={(e) => {
@@ -334,7 +393,7 @@ export default function ValidateTicket() {
 
                     <div>
                       <span>Mobile</span>
-                      <strong>{booking.mobile}</strong>
+                      <strong>{booking.mobileNumber}</strong>
                     </div>
                   </div>
 

@@ -231,8 +231,8 @@
 
   padding: 16px;
   border-radius: 12px;
-  background: #eaf9ef;
-  color: #15803d;
+  background: #aaffc6;
+  color: #003313;
 }
 
 .valid-ticket svg {
@@ -258,7 +258,8 @@
 .verified-id {
   margin-top: 22px;
   padding: 16px;
-  background: #f6f7f9;
+  background: var(--bg);
+  border: 1px solid #ffd24d;
   border-radius: 12px;
 }
 
@@ -266,7 +267,7 @@
   display: block;
   font-size: 10px;
   font-weight: 800;
-  color: #8992a2;
+  color: #ffffff;
   letter-spacing: 1.5px;
 }
 
@@ -274,7 +275,7 @@
   display: block;
   margin-top: 5px;
   font-size: 20px;
-  color: #1d2635;
+  color: #ffd24d;
 }
 
 /* Details */
@@ -288,13 +289,13 @@
 
 .detail-item {
   padding: 15px;
-  background: #fafbfc;
-  border: 1px solid #edf0f4;
+  background: var(--bg);
+  border: 1px solid #ffd24d;
   border-radius: 12px;
 }
 
 .detail-item > svg {
-  color: #d71920;
+  color: #ffd24d;
   margin-bottom: 10px;
 }
 
@@ -336,7 +337,7 @@
 }
 
 .seats-header svg {
-  color: #d71920;
+  color: #ffd24d;
 }
 
 .seats-header h3 {
