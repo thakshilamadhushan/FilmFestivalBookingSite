@@ -56,41 +56,167 @@
   color: #8799b1;
 }
 
-/* TABLET */
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
 
-@media (max-width: 900px) {
+/* ---------- Large Tablet / Small Desktop ---------- */
+@media (max-width: 1280px) {
+  .admin-dashboard {
+    margin: 4% 1%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .admin-dashboard {
+    margin: 3% 3%;
+    padding: 70px 0;
+  }
+
   .dashboard-container {
-    width: calc(100% - 30px);
-    padding-top: 20px;
+    padding: 25px 0;
   }
 
   .dashboard-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .dashboard-title {
+    margin-bottom: 20px;
+  }
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  .admin-dashboard {
+    min-height: 100vh;
+    margin: 0;
+    padding: 70px 0;
+  }
+
+  .dashboard-container {
+    width: calc(100% - 30px);
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 15px 0;
+  }
+
+  .dashboard-layout {
+    display: grid;
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .dashboard-left {
     width: 100%;
+    min-width: 0;
   }
 
   .dashboard-content {
     width: 100%;
+    min-width: 0;
+  }
+
+  .dashboard-title {
+    margin: 0 0 20px;
+  }
+
+  .dashboard-title h2 {
+    font-size: 20px;
+  }
+
+  .dashboard-title p {
+    font-size: 13px;
+  }
+
+  .placeholder-page {
+    min-height: 280px;
   }
 }
 
-/* MOBILE */
-
+/* ---------- Mobile ---------- */
 @media (max-width: 600px) {
+  .admin-dashboard {
+    margin: 0;
+    padding: 80px 10px;
+  }
+
   .dashboard-container {
     width: calc(100% - 20px);
-
-    padding-top: 15px;
+    margin: 0 auto;
+    padding: 10px 0;
   }
 
   .dashboard-layout {
-    gap: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .dashboard-left,
+  .dashboard-content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .dashboard-title {
+    margin: 0 0 16px;
   }
 
   .dashboard-title h2 {
     font-size: 19px;
+    line-height: 1.3;
+  }
+
+  .dashboard-title p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .placeholder-page {
+    min-height: 240px;
+    border-radius: 14px;
+  }
+
+  .placeholder-page h2 {
+    font-size: 18px;
+  }
+
+  .placeholder-page p {
+    font-size: 13px;
+  }
+}
+
+/* ---------- Small Mobile ---------- */
+@media (max-width: 400px) {
+  .admin-dashboard {
+    padding: 10px 0;
+  }
+
+  .dashboard-container {
+    width: calc(100% - 16px);
+    padding: 8px 0;
+  }
+
+  .dashboard-layout {
+    gap: 14px;
+  }
+
+  .dashboard-title {
+    margin-bottom: 14px;
+  }
+
+  .dashboard-title h2 {
+    font-size: 17px;
+  }
+
+  .dashboard-title p {
+    font-size: 11px;
+  }
+
+  .placeholder-page {
+    min-height: 220px;
+    border-radius: 12px;
   }
 }

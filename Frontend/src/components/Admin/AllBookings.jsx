@@ -11,7 +11,7 @@ export default function AdminDashboard({
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("adminToken");
   const [currentPage, setCurrentPage] = useState(1);
-  const bookingsPerPage = 5;
+  const bookingsPerPage = 10;
   const totalPages = Math.ceil(bookings.length / bookingsPerPage);
   const startIndex = (currentPage - 1) * bookingsPerPage;
   const currentBookings = bookings.slice(
