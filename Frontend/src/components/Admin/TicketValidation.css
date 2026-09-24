@@ -1,8 +1,8 @@
 .validate-ticket-page {
   min-height: 100vh;
   padding: 35px;
-  background: #f5f7fb;
-  color: #172033;
+  background: var(--bg);
+  border-radius: 16px;
 }
 
 .validate-ticket-container {
@@ -20,12 +20,12 @@
 }
 
 .validate-header svg {
-  color: #d71920;
+  color: #ffd24d;
 }
 
 .validate-label {
   display: block;
-  color: #d71920;
+  color: #ffd24d;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 2px;
@@ -55,8 +55,8 @@
 
 .scanner-card,
 .result-card {
-  background: #ffffff;
-  border: 1px solid #e5e8ef;
+  background: #171717;
+  border: 1px solid #292929;
   border-radius: 18px;
   padding: 25px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
@@ -70,7 +70,7 @@
 }
 
 .card-title svg {
-  color: #d71920;
+  color: #ffd24d;
 }
 
 .card-title h2 {
@@ -83,10 +83,10 @@
 .ticket-qr-reader {
   width: 100%;
   min-height: 300px;
-  border: 2px dashed #dce1e9;
+  border: 2px dashed #ffd24d;
   border-radius: 15px;
   overflow: hidden;
-  background: #fafbfc;
+  background: var(--bg);
 }
 
 .ticket-qr-reader video {
@@ -116,8 +116,8 @@
 }
 
 .scan-button {
-  background: #d71920;
-  color: white;
+  background: #ffd24d;
+  color: black;
 }
 
 .stop-button {
@@ -131,7 +131,7 @@
 }
 
 .scan-button:hover {
-  background: #b9141a;
+  background: #f7ba05;
 }
 
 /* Divider */
@@ -180,15 +180,17 @@
 }
 
 .booking-input input:focus {
-  border-color: #d71920;
+  border-color: #ffd24d;
 }
 
 .booking-input button {
   width: 45px;
   border: 0;
   border-radius: 9px;
-  background: #d71920;
-  color: white;
+  background: #ffd24d;
+  color: black;
+  display: flex;
+  justify-content: center;
   cursor: pointer;
 }
 
