@@ -20,6 +20,7 @@ export default function Booking() {
     name: "",
     year: "",
     phone: "",
+    date: "",
     time: "",
     payment: "",
     paymentSlip: null,
@@ -88,6 +89,11 @@ export default function Booking() {
       return;
     }
 
+    if (!formData.date) {
+      alert("Please select a date.");
+      return;
+    }
+
     if (!formData.time) {
       alert("Please select a time slot.");
       return;
@@ -114,7 +120,7 @@ export default function Booking() {
     bookingData.append("name", formData.name);
     bookingData.append("studentYear", formData.year);
     bookingData.append("mobileNumber", formData.phone);
-    bookingData.append("date", movie.dates[0]);
+    bookingData.append("date", formData.date);
     bookingData.append("timeSlot", formData.time);
     bookingData.append("selectedSeats", JSON.stringify(selectedSeats));
     bookingData.append("paymentType", formData.payment);
@@ -177,6 +183,7 @@ export default function Booking() {
             formData={formData}
             setFormData={setFormData}
             times={movie.times}
+            dates={movie.dates}
           />
 
           <SeatMap

@@ -6,7 +6,7 @@ import {
   FaClock,
   FaMoneyBill,
 } from "react-icons/fa";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, CalendarDays } from "lucide-react";
 
 export default function BookingSummary({
   formData,
@@ -18,11 +18,12 @@ export default function BookingSummary({
     formData.name.trim() !== "" &&
     formData.year !== "" &&
     formData.phone.trim() !== "" &&
+    formData.Date !== "" &&
     formData.time !== "" &&
     formData.payment !== "" &&
     seats.length > 0 &&
     ((formData.payment == "Bank Payment" && formData.paymentSlip) ||
-    (formData.payment == "Meet Agent" && formData.agentCode));
+      (formData.payment == "Meet Agent" && formData.agentCode));
 
   return (
     <div className="summary-card card">
@@ -58,6 +59,14 @@ export default function BookingSummary({
           <div>
             <small>Payment Method</small>
             <p>{formData.payment || "--"}</p>
+          </div>
+        </div>
+
+        <div className="summary-item">
+          <CalendarDays />
+          <div>
+            <small>Date</small>
+            <p>{formData.date || "--"}</p>
           </div>
         </div>
 

@@ -1,6 +1,6 @@
 import "./bookingForm.css";
 
-export default function BookingForm({ formData, setFormData, times = [] }) {
+export default function BookingForm({ formData, setFormData, times = [], dates = [] }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -31,8 +31,8 @@ export default function BookingForm({ formData, setFormData, times = [] }) {
 
       <div className="form-grid">
         {/* Full Name */}
-        <div className="input-group full">
-          <label>STUDENT FULL NAME</label>
+        <div className="input-group">
+          <label>STUDENT NAME</label>
 
           <input
             type="text"
@@ -56,17 +56,19 @@ export default function BookingForm({ formData, setFormData, times = [] }) {
           </select>
         </div>
 
-        {/* Phone */}
+        {/* Date */}
         <div className="input-group">
-          <label>MOBILE NUMBER</label>
+          <label>DATE</label>
 
-          <input
-            type="tel"
-            name="phone"
-            placeholder="e.g. 07x xxx xxxx"
-            value={formData.phone}
-            onChange={handleChange}
-          />
+          <select name="date" value={formData.date} onChange={handleChange}>
+            <option value="">Select Date</option>
+
+            {dates.map((date, index) => (
+              <option key={index} value={date}>
+                {date}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Time */}
@@ -82,6 +84,19 @@ export default function BookingForm({ formData, setFormData, times = [] }) {
               </option>
             ))}
           </select>
+        </div>
+
+        {/* Phone */}
+        <div className="input-group">
+          <label>MOBILE NUMBER</label>
+
+          <input
+            type="tel"
+            name="phone"
+            placeholder="e.g. 07x xxx xxxx"
+            value={formData.phone}
+            onChange={handleChange}
+          />
         </div>
 
         {/* Payment Type */}
