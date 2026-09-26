@@ -293,8 +293,8 @@
   border: none;
   border-radius: 7px;
 
-  background: #e63946;
-  color: white;
+  background: #ffd24d;
+  color: black;
 
   cursor: pointer;
 }
@@ -364,7 +364,7 @@
 .close-modal {
   width: 35px;
   height: 35px;
-
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -411,7 +411,7 @@
   font-weight: 600;
 }
 
-.form-group input {
+.form-group input, textarea {
   width: 100%;
 
   padding: 11px 12px;
@@ -432,7 +432,7 @@
 }
 
 .form-group input:focus {
-  border-color: #e63946;
+  border-color: #ffd24d;
 }
 
 /* =========================
@@ -498,29 +498,21 @@
   display: flex;
   align-items: center;
   gap: 5px;
-
-  padding: 6px 9px;
-
+  padding: 1px 9px;
   border-radius: 5px;
-
-  background: rgba(230, 57, 70, 0.15);
-
+  border:1px solid #5c4d22;
+  background: #2a271c;
   color: #eee;
-
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .array-tags button {
   display: flex;
-
+  width: auto;
   border: none;
-
   padding: 0;
-
   background: transparent;
-
-  color: #aaa;
-
+  color: #ffd24d;
   cursor: pointer;
 }
 
@@ -563,9 +555,9 @@
 .save-movie-btn {
   border: none;
 
-  background: #e63946;
+  background: #ffd24d;
 
-  color: white;
+  color: black;
 }
 
 /* =========================

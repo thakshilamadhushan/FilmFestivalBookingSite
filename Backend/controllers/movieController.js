@@ -48,7 +48,7 @@ const getMovie = async (req, res) => {
 // CREATE MOVIE
 const createMovie = async (req, res) => {
   try {
-    const { title, poster, imdb, genre, duration, language, dates, times } =
+    const { title, poster, imdb, genre, duration, language, description, director, vote, dates, times } =
       req.body;
 
     if (
@@ -57,7 +57,10 @@ const createMovie = async (req, res) => {
       imdb === undefined ||
       !genre ||
       !duration ||
-      !language
+      !language ||
+      !description ||
+      !director ||
+      !vote
     ) {
       return res.status(400).json({
         success: false,
@@ -72,6 +75,9 @@ const createMovie = async (req, res) => {
       genre,
       duration,
       language,
+      description,
+      director,
+      vote,
       dates: dates || [],
       times: times || [],
     });

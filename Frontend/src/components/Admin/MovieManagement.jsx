@@ -19,6 +19,9 @@ const MovieManagement = () => {
     genre: "",
     duration: "",
     language: "",
+    description: "",
+    director: "",
+    vote: "",
     dates: [],
     times: [],
   });
@@ -130,6 +133,9 @@ const MovieManagement = () => {
       genre: "",
       duration: "",
       language: "",
+      description: "",
+      director: "",
+      vote: "",
       dates: [],
       times: [],
     });
@@ -151,6 +157,9 @@ const MovieManagement = () => {
       genre: movie.genre || "",
       duration: movie.duration || "",
       language: movie.language || "",
+      description: movie.description || "",
+      director: movie.director || "",
+      vote: movie.vote || "",
       dates: movie.dates || [],
       times: movie.times || [],
     });
@@ -171,7 +180,10 @@ const MovieManagement = () => {
       !formData.imdb ||
       !formData.genre ||
       !formData.duration ||
-      !formData.language
+      !formData.language ||
+      !formData.description ||
+      !formData.director ||
+      !formData.vote
     ) {
       alert("Please fill all required fields.");
       return;
@@ -444,6 +456,30 @@ const MovieManagement = () => {
                 </div>
 
                 <div className="form-group">
+                  <label>Director *</label>
+
+                  <input
+                    type="text"
+                    name="director"
+                    value={formData.director}
+                    onChange={handleChange}
+                    placeholder="Movie Director Name"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Vote *</label>
+
+                  <input
+                    type="text"
+                    name="vote"
+                    value={formData.vote}
+                    onChange={handleChange}
+                    placeholder="12k"
+                  />
+                </div>
+
+                <div className="form-group">
                   <label>Language *</label>
 
                   <input
@@ -452,6 +488,17 @@ const MovieManagement = () => {
                     value={formData.language}
                     onChange={handleChange}
                     placeholder="Sinhala"
+                  />
+                </div>
+
+                <div className="form-group full">
+                  <label>Description *</label>
+
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Description about movie..."
                   />
                 </div>
               </div>
