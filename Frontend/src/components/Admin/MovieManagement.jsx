@@ -8,6 +8,7 @@ const MovieManagement = () => {
 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const [editingMovie, setEditingMovie] = useState(null);
@@ -190,6 +191,7 @@ const MovieManagement = () => {
     }
 
     try {
+      setSaving(true);
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -221,6 +223,8 @@ const MovieManagement = () => {
         error.response?.data?.message ||
           "Something went wrong while saving movie",
       );
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -576,8 +580,21 @@ const MovieManagement = () => {
                   Cancel
                 </button>
 
-                <button type="submit" className="save-movie-btn">
-                  {editingMovie ? "Update Movie" : "Add Movie"}
+                <button
+                  type="submit"
+                  className="save-movie-btn"
+                  disabled={saving}
+                >
+                  {saving ? (
+                    <>
+                      <span className="button-spinner"></span>
+                      {editingMovie ? "Updating..." : "Adding..."}
+                    </>
+                  ) : editingMovie ? (
+                    "Update Movie"
+                  ) : (
+                    "Add Movie"
+                  )}
                 </button>
               </div>
             </form>
