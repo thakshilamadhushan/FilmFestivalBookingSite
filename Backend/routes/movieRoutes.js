@@ -3,19 +3,21 @@ const express = require("express");
 const router = express.Router();
 
 const {
+  getMovies,
+  getMovie,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+} = require("../controllers/movieController");
 
-    getMovies,
+const { protect, adminOnly } = require("../middleware/authMiddleware");
 
-    getMovie,
+router.get("/", getMovies);
+router.get("/:id", getMovie);
 
-    createMovie
+// Admin only
+router.post("/", protect, adminOnly, createMovie);
+router.put("/:id", protect, adminOnly, updateMovie);
+router.delete("/:id", protect, adminOnly, deleteMovie);
 
-}=require("../controllers/movieController");
-
-router.get("/",getMovies);
-
-router.get("/:id",getMovie);
-
-router.post("/",createMovie);
-
-module.exports=router;
+module.exports = router;

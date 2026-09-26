@@ -6,6 +6,7 @@ import Overview from "./AdminDashboard";
 import AllBookings from "./AllBookings";
 import { useNavigate } from "react-router-dom";
 import TicketValidation from "./TicketValidation";
+import MovieManagement from "./MovieManagement";
 import "./AdminPage.css";
 
 const AdminDashboard = () => {
@@ -99,6 +100,12 @@ const AdminDashboard = () => {
             {activeTab === "validation" && (
               <div className="placeholder-page">
                 <TicketValidation/>
+              </div>
+            )}
+
+            {activeTab === "movies" && (
+              <div className="placeholder-page">
+                <MovieManagement/>
               </div>
             )}
           </div>

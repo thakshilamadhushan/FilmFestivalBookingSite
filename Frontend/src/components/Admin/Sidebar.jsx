@@ -5,6 +5,7 @@ import {
   ChevronRight,
   ChevronDown,
   Tags,
+  Film,
 } from "lucide-react";
 
 import "./Sidebar.css";
@@ -25,6 +26,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       id: "validation",
       label: "Ticket Validation",
       icon: TicketCheck ,
+    },
+    {
+      id: "movies",
+      label: "All Movies",
+      icon: Film,
     },
   ];
 

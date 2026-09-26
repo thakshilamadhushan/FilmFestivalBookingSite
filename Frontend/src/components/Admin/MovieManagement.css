@@ -1,0 +1,612 @@
+.movie-management {
+  width: 100%;
+  padding: 30px 40px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.movie-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.movie-management-header h2 {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 26px;
+}
+
+.movie-management-header p {
+  margin: 6px 0 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.add-movie-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  border: none;
+  border-radius: 8px;
+
+  padding: 12px 18px;
+
+  background: #ffd24d;
+  color: black;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.add-movie-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* =========================
+   MOVIE GRID
+========================= */
+
+.admin-movie-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(260px, 1fr));
+
+  gap: 24px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.admin-movie-card {
+  overflow: hidden;
+
+  background: var(--bg2, #161616);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 12px;
+
+  transition: 0.25s ease;
+}
+
+.admin-movie-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================
+   POSTER
+========================= */
+
+.admin-movie-poster {
+  position: relative;
+
+  height: 330px;
+
+  background: #222;
+
+  overflow: hidden;
+}
+
+.admin-movie-poster img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.admin-rating {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 6px 9px;
+
+  border-radius: 6px;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  color: #ffd166;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.movie-actions {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  display: flex;
+  gap: 7px;
+}
+
+.movie-actions button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 7px;
+
+  color: white;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(8px);
+
+  transition: 0.2s ease;
+}
+
+.edit-btn {
+  background: rgba(20, 110, 190, 0.9);
+}
+
+.delete-btn {
+  background: rgba(210, 45, 55, 0.9);
+}
+
+.movie-actions button:hover {
+  transform: scale(1.08);
+}
+
+/* =========================
+   INFO
+========================= */
+
+.admin-movie-info {
+  padding: 18px;
+}
+
+.admin-movie-info h3 {
+  margin: 0 0 7px;
+
+  color: var(--text-h, white);
+
+  font-size: 19px;
+}
+
+.movie-genre {
+  color: #ffd24d;
+  font-size: 13px;
+}
+
+/* =========================
+   META
+========================= */
+
+.movie-meta {
+  display: flex;
+
+  gap: 15px;
+
+  margin-top: 13px;
+
+  color: #bbb;
+
+  font-size: 13px;
+}
+
+.movie-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* =========================
+   SHOW INFO
+========================= */
+
+.admin-show-info {
+  margin-top: 17px;
+}
+
+.admin-show-info strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #ddd;
+
+  font-size: 12px;
+
+  margin-bottom: 8px;
+}
+
+.show-tags {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+}
+
+.show-tags span {
+  padding: 1px 10px;
+  border:1px solid #5c4d22;
+  border-radius: 20px;
+  background: #2a271c;
+  color: #ddd;
+  font-size: 11px;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-movies {
+  text-align: center;
+
+  padding: 80px 20px;
+
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+
+  border-radius: 12px;
+}
+
+.empty-movies h3 {
+  color: white;
+}
+
+.empty-movies p {
+  color: #888;
+}
+
+.empty-movies button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 15px;
+
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #e63946;
+  color: white;
+
+  cursor: pointer;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.movie-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  backdrop-filter: blur(5px);
+}
+
+.movie-modal {
+  width: 100%;
+  max-width: 700px;
+  max-height: 92vh;
+
+  overflow-y: auto;
+
+  padding: 28px;
+
+  background: #171717;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 14px;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.movie-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 25px;
+}
+
+.movie-modal-header h2 {
+  margin: 0;
+
+  color: white;
+}
+
+.movie-modal-header p {
+  margin-top: 5px;
+
+  color: #888;
+
+  font-size: 13px;
+}
+
+.close-modal {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  cursor: pointer;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group label,
+.array-section > label {
+  color: #ddd;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #222;
+
+  color: white;
+
+  font-size: 13px;
+}
+
+.form-group input:focus {
+  border-color: #e63946;
+}
+
+/* =========================
+   ARRAY INPUT
+========================= */
+
+.array-section {
+  margin-top: 22px;
+}
+
+.array-input {
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 8px;
+}
+
+.array-input input {
+  flex: 1;
+
+  padding: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  border-radius: 7px;
+
+  background: #222;
+
+  color: white;
+
+  outline: none;
+}
+
+.array-input button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 0 14px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #333;
+
+  color: white;
+
+  cursor: pointer;
+}
+
+.array-tags {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 10px;
+}
+
+.array-tags span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 6px 9px;
+
+  border-radius: 5px;
+
+  background: rgba(230, 57, 70, 0.15);
+
+  color: #eee;
+
+  font-size: 12px;
+}
+
+.array-tags button {
+  display: flex;
+
+  border: none;
+
+  padding: 0;
+
+  background: transparent;
+
+  color: #aaa;
+
+  cursor: pointer;
+}
+
+/* =========================
+   MODAL ACTIONS
+========================= */
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 30px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-actions button {
+  padding: 11px 18px;
+
+  border-radius: 7px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.cancel-btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: transparent;
+
+  color: #ccc;
+}
+
+.save-movie-btn {
+  border: none;
+
+  background: #e63946;
+
+  color: white;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.movie-loading {
+  padding: 60px;
+
+  text-align: center;
+
+  color: #999;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+  .movie-management-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-movie-btn {
+    justify-content: center;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full {
+    grid-column: auto;
+  }
+
+  .movie-modal {
+    padding: 20px;
+  }
+
+  .admin-movie-grid {
+    grid-template-columns: 1fr;
+  }
+}

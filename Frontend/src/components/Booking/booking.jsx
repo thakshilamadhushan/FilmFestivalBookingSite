@@ -57,7 +57,7 @@ export default function Booking() {
         const movieData = await movieRes.json();
         const seatsData = await seatsRes.json();
 
-        setMovie(movieData);
+        setMovie(movieData.movie);
         setOccupiedSeats(seatsData.seats || []);
       } catch (error) {
         console.error("Error fetching data:", error);

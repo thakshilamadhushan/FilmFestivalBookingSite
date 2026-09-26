@@ -1,67 +1,168 @@
 const Movie = require("../models/Movie");
 
-const getMovies = async(req,res)=>{
+// GET ALL MOVIES
+const getMovies = async (req, res) => {
+  try {
+    const movies = await Movie.find().sort({ createdAt: -1 });
 
-    try{
+    res.status(200).json({
+      success: true,
+      movies,
+    });
+  } catch (error) {
+    console.error("Get movies error:", error);
 
-        const movies = await Movie.find();
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch movies",
+    });
+  }
+};
 
-        res.json(movies);
+// GET SINGLE MOVIE
+const getMovie = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
 
+    if (!movie) {
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found",
+      });
     }
 
-    catch(err){
+    res.status(200).json({
+      success: true,
+      movie,
+    });
+  } catch (error) {
+    console.error("Get movie error:", error);
 
-        res.status(500).json({
-            message:err.message
-        });
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch movie",
+    });
+  }
+};
 
+// CREATE MOVIE
+const createMovie = async (req, res) => {
+  try {
+    const { title, poster, imdb, genre, duration, language, dates, times } =
+      req.body;
+
+    if (
+      !title ||
+      !poster ||
+      imdb === undefined ||
+      !genre ||
+      !duration ||
+      !language
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all required fields",
+      });
     }
 
-}
+    const movie = await Movie.create({
+      title,
+      poster,
+      imdb,
+      genre,
+      duration,
+      language,
+      dates: dates || [],
+      times: times || [],
+    });
 
-const getMovie = async(req,res)=>{
+    res.status(201).json({
+      success: true,
+      message: "Movie added successfully",
+      movie,
+    });
+  } catch (error) {
+    console.error("Create movie error:", error);
 
-    try{
+    res.status(500).json({
+      success: false,
+      message: "Failed to create movie",
+    });
+  }
+};
 
-        const movie = await Movie.findById(req.params.id);
+// UPDATE MOVIE
+const updateMovie = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
 
-        res.json(movie);
-
+    if (!movie) {
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found",
+      });
     }
 
-    catch(err){
+    const { title, poster, imdb, genre, duration, language, dates, times } =
+      req.body;
 
-        res.status(500).json({
-            message:err.message
-        });
+    movie.title = title;
+    movie.poster = poster;
+    movie.imdb = imdb;
+    movie.genre = genre;
+    movie.duration = duration;
+    movie.language = language;
+    movie.dates = dates || [];
+    movie.times = times || [];
 
+    await movie.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Movie updated successfully",
+      movie,
+    });
+  } catch (error) {
+    console.error("Update movie error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to update movie",
+    });
+  }
+};
+
+// DELETE MOVIE
+const deleteMovie = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+
+    if (!movie) {
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found",
+      });
     }
 
-}
+    await Movie.findByIdAndDelete(req.params.id);
 
-const createMovie = async(req,res)=>{
+    res.status(200).json({
+      success: true,
+      message: "Movie deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete movie error:", error);
 
-    try{
-
-        const movie = await Movie.create(req.body);
-
-        res.status(201).json(movie);
-
-    }
-
-    catch(err){
-
-        res.status(400).json({
-            message:err.message
-        });
-
-    }
-
-}
-
-module.exports={
-    getMovies,
-    getMovie,
-    createMovie
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete movie",
+    });
+  }
+};
+module.exports = {
+  getMovies,
+  getMovie,
+  createMovie,
+  updateMovie,
+  deleteMovie,
 };
