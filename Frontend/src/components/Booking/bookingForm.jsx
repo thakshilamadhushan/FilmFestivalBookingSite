@@ -1,6 +1,14 @@
 import "./bookingForm.css";
 
-export default function BookingForm({ formData, setFormData, times = [], dates = [] }) {
+export default function BookingForm({
+  formData,
+  setFormData,
+  times = [],
+  dates = [],
+  setSelectedDate,
+  setSelectedTime,
+  setSelectedSeats,
+}) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -13,6 +21,33 @@ export default function BookingForm({ formData, setFormData, times = [], dates =
         ? { paymentSlip: null }
         : {}),
     }));
+
+    // Update parent selected date/time
+    if (name === "date") {
+      setFormData((prev) => ({
+        ...prev,
+        date: value,
+        time: "",
+      }));
+
+      setSelectedDate(value);
+      setSelectedTime("");
+
+      // Clear seats from previous show
+      setSelectedSeats([]);
+    }
+
+    if (name === "time") {
+      setFormData((prev) => ({
+        ...prev,
+        time: value,
+      }));
+
+      setSelectedTime(value);
+
+      // Clear seats from previous show
+      setSelectedSeats([]);
+    }
   };
 
   // Handle file upload

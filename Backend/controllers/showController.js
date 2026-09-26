@@ -5,26 +5,21 @@ exports.getShowsByMovie = async (req, res) => {
   try {
     const { movieId } = req.params;
 
-    const shows = await Show.find({
-      movie: movieId,
-    })
+    const shows = await Show.find({ movie: movieId })
       .populate("movie")
       .sort({ date: 1, time: 1 });
 
-    if (!shows || shows.length === 0) {
-      return res.status(404).json({
-        message: "No shows found for this movie",
-      });
-    }
-
-    res.status(200).json(shows);
+    res.status(200).json({
+      success: true,
+      shows,
+    });
   } catch (error) {
     res.status(500).json({
+      success: false,
       message: error.message,
     });
   }
 };
-
 
 // Get seats for a specific show
 exports.getShowSeats = async (req, res) => {
@@ -53,7 +48,6 @@ exports.getShowSeats = async (req, res) => {
   }
 };
 
-
 // Get one specific show by movie + date + time
 exports.getShow = async (req, res) => {
   try {
@@ -78,7 +72,6 @@ exports.getShow = async (req, res) => {
     });
   }
 };
-
 
 // Create a new show
 exports.createShow = async (req, res) => {
@@ -122,7 +115,6 @@ exports.createShow = async (req, res) => {
   }
 };
 
-
 // Update a show
 exports.updateShow = async (req, res) => {
   try {
@@ -161,7 +153,6 @@ exports.updateShow = async (req, res) => {
     });
   }
 };
-
 
 // Delete a show
 exports.deleteShow = async (req, res) => {

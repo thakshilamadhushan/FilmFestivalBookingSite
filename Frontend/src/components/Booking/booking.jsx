@@ -12,10 +12,22 @@ export default function Booking() {
   const API_URL = import.meta.env.VITE_API_URL;
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const [occupiedSeats, setOccupiedSeats] = useState([]);
+  const [shows, setShows] = useState([]);
+
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [bookingLoading, setBookingLoading] = useState(false);
   const navigate = useNavigate();
+
+  const selectedShow = shows.find(
+    (show) => show.date === selectedDate && show.time === selectedTime,
+  );
+
+  console.log("Selected Show:", selectedShow);
+  const occupiedSeats = selectedShow?.seats || [];
+
   const [formData, setFormData] = useState({
     name: "",
     year: "",
@@ -50,16 +62,16 @@ export default function Booking() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [movieRes, seatsRes] = await Promise.all([
+        const [movieRes, showsRes] = await Promise.all([
           fetch(`${API_URL}/api/movies/${id}`),
           fetch(`${API_URL}/api/shows/movie/${id}`),
         ]);
 
         const movieData = await movieRes.json();
-        const seatsData = await seatsRes.json();
+        const showsData = await showsRes.json();
 
         setMovie(movieData.movie);
-        setOccupiedSeats(seatsData.seats || []);
+        setShows(showsData.shows || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -182,8 +194,11 @@ export default function Booking() {
           <BookingForm
             formData={formData}
             setFormData={setFormData}
-            times={movie.times}
-            dates={movie.dates}
+            times={movie.times || []}
+            dates={movie.dates || []}
+            setSelectedDate={setSelectedDate}
+            setSelectedTime={setSelectedTime}
+            setSelectedSeats={setSelectedSeats}
           />
 
           <SeatMap

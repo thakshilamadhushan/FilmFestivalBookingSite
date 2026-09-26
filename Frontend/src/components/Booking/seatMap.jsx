@@ -3,14 +3,10 @@ import "./seatMap.css";
 const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
 const cols = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export default function SeatMap({
-  selectedSeats,
-  occupiedSeats,
-  toggleSeat,
-}) {
+export default function SeatMap({ selectedSeats, occupiedSeats, toggleSeat }) {
+  
   return (
     <div className="seat-card card">
-
       <h2>Select Your Seats</h2>
 
       <p className="seat-subtitle">
@@ -28,10 +24,8 @@ export default function SeatMap({
 
       {/* Seats */}
       <div className="seat-layout">
-
         {rows.map((row) => (
           <div className="seat-row" key={row}>
-
             <span className="row-name">{row}</span>
 
             {cols.map((col) => {
@@ -55,15 +49,12 @@ export default function SeatMap({
             })}
 
             <span className="row-name">{row}</span>
-
           </div>
         ))}
-
       </div>
 
       {/* Legend */}
       <div className="seat-legend">
-
         <div>
           <span className="legend red"></span>
           Available
@@ -78,9 +69,7 @@ export default function SeatMap({
           <span className="legend gray"></span>
           Occupied
         </div>
-
       </div>
-
     </div>
   );
 }
