@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
+  getAllShows,
   getShowsByMovie,
   getShowSeats,
   getShow,
@@ -32,6 +33,10 @@ router.get("/:showId/seats", getShowSeats);
 // ===============================
 // ADMIN ROUTES
 // ===============================
+
+// Get All Shows
+// GET /api/shows
+router.get("/", protect, adminOnly, getAllShows);
 
 // Create a show
 // POST /api/shows

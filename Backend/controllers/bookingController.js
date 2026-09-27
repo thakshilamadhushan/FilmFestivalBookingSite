@@ -84,7 +84,7 @@ exports.createBooking = async (req, res) => {
     if (!updatedShow) {
       return res.status(400).json({
         success: false,
-        message: "Some seats are already booked.",
+        message: "Some shows are not available yet.",
       });
     }
 

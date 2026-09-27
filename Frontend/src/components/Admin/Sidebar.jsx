@@ -6,6 +6,7 @@ import {
   ChevronDown,
   Tags,
   Film,
+  Clapperboard,
 } from "lucide-react";
 
 import "./Sidebar.css";
@@ -31,6 +32,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       id: "movies",
       label: "All Movies",
       icon: Film,
+    },
+    {
+      id: "shows",
+      label: "All Shows",
+      icon: Clapperboard,
     },
   ];
 

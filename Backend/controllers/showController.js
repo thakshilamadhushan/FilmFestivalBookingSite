@@ -1,5 +1,24 @@
 const Show = require("../models/Show");
 
+// Get all shows - Admin
+exports.getAllShows = async (req, res) => {
+  try {
+    const shows = await Show.find()
+      .populate("movie", "title poster")
+      .sort({ date: 1, time: 1 });
+
+    res.status(200).json({
+      success: true,
+      shows,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 // Get all shows for a movie
 exports.getShowsByMovie = async (req, res) => {
   try {
