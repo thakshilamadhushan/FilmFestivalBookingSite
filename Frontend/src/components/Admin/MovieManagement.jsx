@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Plus, Pencil, Trash2, X, Calendar, Clock, Star } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Clock, Star } from "lucide-react";
+import { FaClock, FaCalendar } from "react-icons/fa";
 import "./MovieManagement.css";
 
 const MovieManagement = () => {
@@ -335,35 +336,42 @@ const MovieManagement = () => {
                   <span>{movie.language}</span>
                 </div>
 
-                {/* DATES */}
+                {/* DATES and TIMES */}
+                {movie.shows && movie.shows.length > 0 ? (
+                  <div className="show-schedule">
+                    {Object.entries(
+                      movie.shows.reduce((groups, show) => {
+                        if (!groups[show.date]) {
+                          groups[show.date] = [];
+                        }
 
-                <div className="admin-show-info">
-                  <strong>
-                    <Calendar size={14} />
-                    Dates
-                  </strong>
+                        groups[show.date].push(show);
 
-                  <div className="show-tags">
-                    {movie.dates?.map((date) => (
-                      <span key={date}>{date}</span>
+                        return groups;
+                      }, {}),
+                    ).map(([date, shows]) => (
+                      <div className="show-day" key={date}>
+                        <div className="dates">
+                          <span>
+                            <FaCalendar />
+                            {date}
+                          </span>
+                        </div>
+
+                        <div className="times">
+                          {shows.map((show) => (
+                            <span key={show._id}>
+                              <FaClock />
+                              {show.time}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
-                </div>
-
-                {/* TIMES */}
-
-                <div className="admin-show-info">
-                  <strong>
-                    <Clock size={14} />
-                    Showtimes
-                  </strong>
-
-                  <div className="show-tags">
-                    {movie.times?.map((time) => (
-                      <span key={time}>{time}</span>
-                    ))}
-                  </div>
-                </div>
+                ) : (
+                  <p className="no-shows">No shows available</p>
+                )}
               </div>
             </div>
           ))}

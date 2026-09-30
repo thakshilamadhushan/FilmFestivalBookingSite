@@ -259,6 +259,12 @@
   font-size: 11px;
 }
 
+.admin-movie-card .no-shows{
+  font-size: 14px;
+  color: #ff0000;
+  margin-top: auto;
+}
+
 /* =========================
    EMPTY
 ========================= */
