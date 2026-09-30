@@ -421,6 +421,7 @@
 }
 
 .shows-modal-header > button {
+  width: auto;
   border: none;
   background: transparent;
   color: #9ca3af;
@@ -462,7 +463,7 @@
 
 .show-form-group input:focus,
 .show-form-group select:focus {
-  border-color: #dc2626;
+  border-color: #ffd24d;
 }
 
 .show-form-row {
@@ -505,12 +506,12 @@
 }
 
 .save-show-btn {
-  background: #dc2626;
-  color: white;
+  background: #ffd24d;
+  color: black;
 }
 
 .save-show-btn:hover {
-  background: #b91c1c;
+  background: #e7b318;
 }
 
 /* =========================
