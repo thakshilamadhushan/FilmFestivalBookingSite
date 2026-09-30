@@ -1,13 +1,30 @@
 const Movie = require("../models/Movie");
+const Show = require("../models/Show");
 
 // GET ALL MOVIES
 const getMovies = async (req, res) => {
   try {
-    const movies = await Movie.find().sort({ createdAt: -1 });
+    const movies = await Movie.find().sort({ createdAt: -1 }).lean();
+
+    const moviesWithShows = await Promise.all(
+      movies.map(async (movie) => {
+        const shows = await Show.find({
+          movie: movie._id,
+        })
+          .select("_id date time")
+          .sort({ date: 1, time: 1 })
+          .lean();
+
+        return {
+          ...movie,
+          shows,
+        };
+      }),
+    );
 
     res.status(200).json({
       success: true,
-      movies,
+      movies: moviesWithShows,
     });
   } catch (error) {
     console.error("Get movies error:", error);
@@ -22,7 +39,7 @@ const getMovies = async (req, res) => {
 // GET SINGLE MOVIE
 const getMovie = async (req, res) => {
   try {
-    const movie = await Movie.findById(req.params.id);
+    const movie = await Movie.findById(req.params.id).lean();
 
     if (!movie) {
       return res.status(404).json({
@@ -31,9 +48,21 @@ const getMovie = async (req, res) => {
       });
     }
 
+    const shows = await Show.find({
+      movie: movie._id,
+    })
+      .sort({
+        date: 1,
+        time: 1,
+      })
+      .lean();
+
     res.status(200).json({
       success: true,
-      movie,
+      movie: {
+        ...movie,
+        shows,
+      },
     });
   } catch (error) {
     console.error("Get movie error:", error);
@@ -48,8 +77,19 @@ const getMovie = async (req, res) => {
 // CREATE MOVIE
 const createMovie = async (req, res) => {
   try {
-    const { title, poster, imdb, genre, duration, language, description, director, vote, dates, times } =
-      req.body;
+    const {
+      title,
+      poster,
+      imdb,
+      genre,
+      duration,
+      language,
+      description,
+      director,
+      vote,
+      dates,
+      times,
+    } = req.body;
 
     if (
       !title ||

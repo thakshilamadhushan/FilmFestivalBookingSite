@@ -34,23 +34,41 @@ function MovieCard({ movie }) {
           <p>{movie.language}</p>
         </div>
 
-        <div className="dates">
-          {movie.dates.map((date) => (
-            <span key={date}>
-              <FaCalendar />
-              {date}
-            </span>
-          ))}
-        </div>
+        {movie.shows && movie.shows.length > 0 ? (
+          <div className="show-schedule">
+            {Object.entries(
+              movie.shows.reduce((groups, show) => {
+                if (!groups[show.date]) {
+                  groups[show.date] = [];
+                }
 
-        <div className="times">
-          {movie.times.map((time) => (
-            <span key={time}>
-              <FaClock />
-              {time}
-            </span>
-          ))}
-        </div>
+                groups[show.date].push(show);
+
+                return groups;
+              }, {}),
+            ).map(([date, shows]) => (
+              <div className="show-day" key={date}>
+                <div className="dates">
+                  <span>
+                    <FaCalendar />
+                    {date}
+                  </span>
+                </div>
+
+                <div className="times">
+                  {shows.map((show) => (
+                    <span key={show._id}>
+                      <FaClock />
+                      {show.time}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="no-shows">No shows available</p>
+        )}
 
         <button onClick={() => navigate(`/booking/${movie._id}`)}>
           Book Seat →
