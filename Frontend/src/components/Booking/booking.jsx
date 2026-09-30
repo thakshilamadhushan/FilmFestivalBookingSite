@@ -21,11 +21,14 @@ export default function Booking() {
   const [bookingLoading, setBookingLoading] = useState(false);
   const navigate = useNavigate();
 
+  const availableDates = [...new Set(shows.map((show) => show.date))];
+
+  const availableTimes = shows.filter((show) => show.date === selectedDate);
+
   const selectedShow = shows.find(
     (show) => show.date === selectedDate && show.time === selectedTime,
   );
 
-  console.log("Selected Show:", selectedShow);
   const occupiedSeats = selectedShow?.seats || [];
 
   const [formData, setFormData] = useState({
@@ -132,8 +135,8 @@ export default function Booking() {
     bookingData.append("name", formData.name);
     bookingData.append("studentYear", formData.year);
     bookingData.append("mobileNumber", formData.phone);
-    bookingData.append("date", formData.date);
-    bookingData.append("timeSlot", formData.time);
+    bookingData.append("date", selectedDate);
+    bookingData.append("timeSlot", selectedTime);
     bookingData.append("selectedSeats", JSON.stringify(selectedSeats));
     bookingData.append("paymentType", formData.payment);
     bookingData.append("totalAmount", 70 * selectedSeats.length);
@@ -194,8 +197,10 @@ export default function Booking() {
           <BookingForm
             formData={formData}
             setFormData={setFormData}
-            times={movie.times || []}
-            dates={movie.dates || []}
+            times={availableTimes}
+            dates={availableDates}
+            selectedDate={selectedDate}
+            selectedTime={selectedTime}
             setSelectedDate={setSelectedDate}
             setSelectedTime={setSelectedTime}
             setSelectedSeats={setSelectedSeats}

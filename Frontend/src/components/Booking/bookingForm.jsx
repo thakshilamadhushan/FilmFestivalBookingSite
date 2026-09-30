@@ -3,8 +3,10 @@ import "./bookingForm.css";
 export default function BookingForm({
   formData,
   setFormData,
-  times = [],
-  dates = [],
+  times,
+  dates,
+  selectedDate,
+  selectedTime,
   setSelectedDate,
   setSelectedTime,
   setSelectedSeats,
@@ -21,33 +23,6 @@ export default function BookingForm({
         ? { paymentSlip: null }
         : {}),
     }));
-
-    // Update parent selected date/time
-    if (name === "date") {
-      setFormData((prev) => ({
-        ...prev,
-        date: value,
-        time: "",
-      }));
-
-      setSelectedDate(value);
-      setSelectedTime("");
-
-      // Clear seats from previous show
-      setSelectedSeats([]);
-    }
-
-    if (name === "time") {
-      setFormData((prev) => ({
-        ...prev,
-        time: value,
-      }));
-
-      setSelectedTime(value);
-
-      // Clear seats from previous show
-      setSelectedSeats([]);
-    }
   };
 
   // Handle file upload
@@ -95,11 +70,27 @@ export default function BookingForm({
         <div className="input-group">
           <label>DATE</label>
 
-          <select name="date" value={formData.date} onChange={handleChange}>
+          <select
+            name="date"
+            value={formData.date}
+            onChange={(e) => {
+              const date = e.target.value;
+
+              setFormData((prev) => ({
+                ...prev,
+                date,
+                time: "", // reset time when date changes
+              }));
+
+              setSelectedDate(date);
+              setSelectedTime("");
+              setSelectedSeats([]);
+            }}
+          >
             <option value="">Select Date</option>
 
-            {dates.map((date, index) => (
-              <option key={index} value={date}>
+            {dates.map((date) => (
+              <option key={date} value={date}>
                 {date}
               </option>
             ))}
@@ -110,12 +101,27 @@ export default function BookingForm({
         <div className="input-group">
           <label>TIME SLOT</label>
 
-          <select name="time" value={formData.time} onChange={handleChange}>
-            <option value="">Select Time</option>
+          <select
+            name="time"
+            value={formData.time}
+            onChange={(e) => {
+              const time = e.target.value;
 
-            {times.map((time, index) => (
-              <option key={index} value={time}>
-                {time}
+              setFormData((prev) => ({
+                ...prev,
+                time,
+              }));
+
+              setSelectedTime(time);
+              setSelectedSeats([]);
+            }}
+            disabled={!formData.date}
+          >
+            <option value="">{formData.date ? "Select Time" : "Select Date First"}</option>
+
+            {times.map((show) => (
+              <option key={show._id} value={show.time}>
+                {show.time}
               </option>
             ))}
           </select>
