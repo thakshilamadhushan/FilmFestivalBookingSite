@@ -87,8 +87,6 @@ const createMovie = async (req, res) => {
       description,
       director,
       vote,
-      dates,
-      times,
     } = req.body;
 
     if (
@@ -118,8 +116,6 @@ const createMovie = async (req, res) => {
       description,
       director,
       vote,
-      dates: dates || [],
-      times: times || [],
     });
 
     res.status(201).json({
@@ -158,8 +154,6 @@ const updateMovie = async (req, res) => {
     movie.genre = genre;
     movie.duration = duration;
     movie.language = language;
-    movie.dates = dates || [];
-    movie.times = times || [];
 
     await movie.save();
 

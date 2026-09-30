@@ -36,14 +36,6 @@ const movieSchema = new mongoose.Schema({
         type:String
     },
 
-    dates:{
-        type:[String]
-    },
-
-    times:{
-        type:[String]
-    },
-
     description:{
         type:String
     },

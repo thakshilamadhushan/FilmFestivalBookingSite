@@ -443,7 +443,7 @@ const MovieManagement = () => {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group full">
                   <label>Genre *</label>
 
                   <input
@@ -512,68 +512,6 @@ const MovieManagement = () => {
                     onChange={handleChange}
                     placeholder="Description about movie..."
                   />
-                </div>
-              </div>
-
-              {/* DATES */}
-
-              <div className="array-section">
-                <label>Screening Dates</label>
-
-                <div className="array-input">
-                  <input
-                    type="date"
-                    value={dateInput}
-                    onChange={(e) => setDateInput(e.target.value)}
-                  />
-
-                  <button type="button" onClick={addDate}>
-                    <Plus size={16} />
-                    Add
-                  </button>
-                </div>
-
-                <div className="array-tags">
-                  {formData.dates.map((date) => (
-                    <span key={date}>
-                      {date}
-
-                      <button type="button" onClick={() => removeDate(date)}>
-                        <X size={13} />
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* TIMES */}
-
-              <div className="array-section">
-                <label>Show Times</label>
-
-                <div className="array-input">
-                  <input
-                    type="time"
-                    value={timeInput}
-                    onChange={(e) => setTimeInput(e.target.value)}
-                  />
-
-                  <button type="button" onClick={addTime}>
-                    <Plus size={16} />
-                    Add
-                  </button>
-                </div>
-
-                <div className="array-tags">
-                  {formData.times.map((time) => (
-                    <span key={time}>
-                      {time}
-
-                      <button type="button" onClick={() => removeTime(time)}>
-                        <X size={13} />
-                      </button>
-                    </span>
-                  ))}
                 </div>
               </div>
 
