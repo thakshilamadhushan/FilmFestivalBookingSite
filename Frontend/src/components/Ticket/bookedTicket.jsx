@@ -124,7 +124,7 @@ const BookedTicket = () => {
               </div>
 
               <div className="ticketlogoname">
-                <h2>FIHST Film Festival</h2>
+                <h2>CinemaniaX 3.0</h2>
                 <span>OFFICIAL ENTRY TICKET · 2026</span>
               </div>
             </div>

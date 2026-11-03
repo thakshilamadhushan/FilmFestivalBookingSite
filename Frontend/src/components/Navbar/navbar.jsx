@@ -30,7 +30,7 @@ function Navbar() {
         </div>
 
         <div>
-          <h2>FIHST Film Festival</h2>
+          <h2>CinemaniaX 3.0</h2>
           <span>2026 EDITION</span>
         </div>
       </div>

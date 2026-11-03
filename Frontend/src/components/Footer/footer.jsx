@@ -38,7 +38,7 @@ function Footer() {
             </div>
 
             <div>
-              <h2>FIHST Film Festival</h2>
+              <h2>CinemaniaX 3.0</h2>
               <span>2026 Edition</span>
             </div>
           </div>
@@ -104,12 +104,12 @@ function Footer() {
           <div className="contact-item">
             <FaMapMarkerAlt className="contact-icon" />
 
-            <p>FIHST Media, GWUIM</p>
+            <p>Department of Technology, GWUIM</p>
           </div>
 
           <div className="contact-item">
             <FaEnvelope className="contact-icon" />
-            <p>fihstmedia@gmail.com</p>
+            <p>thakshilamadushan900@gmail.com</p>
           </div>
 
           <div className="contact-item whatsapp">
@@ -122,7 +122,7 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>© 2026 FIHST Film Festival — Department of Technology</p>
+        <p>© 2026 CinemaniaX 3.0 — Department of Technology, GWUIM</p>
 
         <p>Designed for cinema lovers, by cinema lovers.</p>
       </div>

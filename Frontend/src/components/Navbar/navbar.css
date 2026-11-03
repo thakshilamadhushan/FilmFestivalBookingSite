@@ -144,7 +144,7 @@
     width:100%;
     height:35vh;
 
-    background:#090909;
+    background:rgba(0,0,0,.95);
 
     display:flex;
     flex-direction:column;

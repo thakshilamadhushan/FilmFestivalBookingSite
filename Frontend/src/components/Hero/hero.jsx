@@ -33,7 +33,7 @@ function Hero() {
       <div className={animate ? "heroContent animate" : "heroContent"}>
 
         <div className="badge">
-          FIHST FILM FESTIVAL 2026 EDITION
+          CinemaniaX 2026 EDITION
         </div>
 
         <h1 className="heroTitle">
@@ -74,7 +74,7 @@ function Hero() {
           </div>
 
           <div>
-            <h2>480</h2>
+            <h2>100</h2>
             <span>Seats</span>
           </div>
 
